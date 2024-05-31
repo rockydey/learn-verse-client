@@ -14,6 +14,7 @@ export default {
       color6: "#757575",
       color7: "#E0E0E0",
       color8: "#BDBDBD",
+      color9: "#F3F3F3",
     },
     fontFamily: {
       poppins: '"Poppins", sans-serif',
