@@ -14,7 +14,7 @@ const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   console.log(isDarkMode);
   return (
-    <div className='bg-color9 py-1 shadow-md fixed top-0 z-50 w-full transition-all duration-1000'>
+    <div className='bg-color4 py-2 shadow-md fixed top-0 z-50 w-full transition-all duration-1000'>
       <div className='max-w-screen-xl mx-auto'>
         <Navbar fluid rounded>
           <NavbarBrand>
@@ -34,7 +34,7 @@ const Header = () => {
           </NavbarBrand>
           <NavbarToggle />
           <NavbarCollapse>
-            <div className='text-lg my-3 md:my-0 mx-auto md:mx-0 uppercase font-semibold space-x-5 text-white'>
+            <div className='text-lg my-3 md:my-0 mx-auto md:mx-0 uppercase font-semibold space-x-5 text-color4'>
               <Link
                 className='w-fit bg-color1 px-3 py-2 rounded-md'
                 to='/login'>
