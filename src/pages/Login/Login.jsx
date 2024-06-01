@@ -1,11 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import authBg from "../../assets/footer.jpg";
 import { FaUserGraduate, FaGoogle, FaGithub } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { MdAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
+import useAuth from "../../hooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const { loginUser } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -13,7 +18,29 @@ const Login = () => {
   } = useForm();
 
   const handleLogin = (data) => {
-    console.log(data);
+    const email = data.email;
+    const password = data.password;
+
+    loginUser(email, password)
+      .then((result) => {
+        if (result.user.uid) {
+          navigate("/");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Logged in successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((error) => {
+        if (error.message === "Firebase: Error (auth/invalid-credential).") {
+          toast.error("Wrong user email or password!");
+        } else {
+          toast.error(error.message);
+        }
+      });
   };
 
   return (
@@ -99,6 +126,7 @@ const Login = () => {
           </p>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

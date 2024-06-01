@@ -11,10 +11,17 @@ import DarkModeToggle from "react-dark-mode-toggle";
 import { useState } from "react";
 import "./Header.css";
 import useAuth from "../../../hooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
 
 const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
+
+  const handleLogout = () => {
+    logOut().then(() => {
+      toast.success("Logged out successfully!");
+    });
+  };
 
   return (
     <div className='bg-color4 py-2 shadow-md fixed top-0 z-50 w-full transition-all duration-1000'>
@@ -51,7 +58,9 @@ const Header = () => {
                     to='/dashboard'>
                     Dashboard
                   </Link>
-                  <button className='w-fit uppercase text-color2 border-2 border-color2 px-4 py-2 rounded-full'>
+                  <button
+                    onClick={handleLogout}
+                    className='w-fit uppercase text-color2 border-2 border-color2 px-4 py-2 rounded-full'>
                     Logout
                   </button>
                 </div>
@@ -73,6 +82,7 @@ const Header = () => {
           </NavbarCollapse>
         </Navbar>
       </div>
+      <Toaster />
     </div>
   );
 };
