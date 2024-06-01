@@ -7,15 +7,25 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import useAuth from "../../hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
+import useAxoisPublic from "../../hooks/useAxoisPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const Login = () => {
-  const { loginUser } = useAuth();
+  const { loginUser, googleLogin, githubLogin } = useAuth();
+  const axoisPublic = useAxoisPublic();
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { data: users } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await axoisPublic.get("/users");
+      return res.data;
+    },
+  });
 
   const handleLogin = (data) => {
     const email = data.email;
@@ -41,6 +51,64 @@ const Login = () => {
           toast.error(error.message);
         }
       });
+  };
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((result) => {
+        const userEmail = users.find(
+          (user) => user?.user_email === result.user.email
+        );
+        if (userEmail === undefined) {
+          const userInfo = {
+            user_name: result.user.displayName,
+            user_email: result.user.email,
+            user_image: result.user.photoURL,
+            user_role: "student",
+          };
+          console.log("login", userInfo);
+          axoisPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              navigate("/");
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Logged in successfully!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+        } else {
+          navigate("/");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Logged in successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((error) => toast.error(error.message));
+  };
+
+  const handleGithubLogin = () => {
+    githubLogin()
+      .then((result) => {
+        if (result.user.uid) {
+          navigate("/");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Logged in successfully!",
+            text: "Please use manual login or google login for exploring features.",
+            confirmButtonText: "Okay",
+            confirmButtonColor: "#2ECA7F",
+          });
+        }
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (
@@ -102,13 +170,17 @@ const Login = () => {
           <div className='border-b-[3px] w-full'></div>
         </div>
         <div className='flex items-center justify-around'>
-          <button className='flex items-center text-color4 text-lg'>
+          <button
+            onClick={handleGoogleLogin}
+            className='flex items-center text-color4 text-lg'>
             <p className='bg-[#DB4437] p-4'>
               <FaGoogle />
             </p>
             <p className='bg-[#CC3333] py-[11px] px-5 font-medium'>Google</p>
           </button>
-          <button className='flex items-center text-color4 text-lg'>
+          <button
+            onClick={handleGithubLogin}
+            className='flex items-center text-color4 text-lg'>
             <p className='bg-[#2b3137] p-4'>
               <FaGithub />
             </p>

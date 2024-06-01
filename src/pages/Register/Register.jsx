@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import authBg from "../../assets/footer.jpg";
-import { FaUserGraduate, FaRegUser, FaGoogle, FaGithub } from "react-icons/fa";
+import { FaUserGraduate, FaRegUser } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import "./Register.css";
 import { MdAlternateEmail } from "react-icons/md";
@@ -78,7 +78,7 @@ const Register = () => {
   return (
     <div
       style={{ backgroundImage: `url(${authBg})` }}
-      className='h-screen lg:h-full bg-fixed px-2 md:px-0 bg-color3 bg-blend-multiply py-20 lg:py-16 bg-cover bg-center bg-no-repeat'>
+      className='h-screen bg-fixed px-2 md:px-0 bg-color3 bg-blend-multiply py-24 bg-cover bg-center bg-no-repeat'>
       <div className='md:max-w-lg mx-auto bg-color4 p-5 md:p-8 rounded-xl border-2 border-color2 shadow-xl'>
         <Link
           to='/'
@@ -173,25 +173,6 @@ const Register = () => {
             />
           </div>
         </form>
-        <div className='my-4 flex items-center gap-5'>
-          <div className='border-b-[3px] w-full'></div>
-          <h3 className='text-lg font-semibold text-color6'>OR</h3>
-          <div className='border-b-[3px] w-full'></div>
-        </div>
-        <div className='flex items-center justify-around'>
-          <button className='flex items-center text-color4 text-lg'>
-            <p className='bg-[#DB4437] p-4'>
-              <FaGoogle />
-            </p>
-            <p className='bg-[#CC3333] py-[11px] px-5 font-medium'>Google</p>
-          </button>
-          <button className='flex items-center text-color4 text-lg'>
-            <p className='bg-[#2b3137] p-4'>
-              <FaGithub />
-            </p>
-            <p className='bg-color5 py-[11px] px-5 font-medium'>Github</p>
-          </button>
-        </div>
         <div className='mt-4'>
           <p className='text-center text-base text-color5 font-medium'>
             Already have an account?{" "}
