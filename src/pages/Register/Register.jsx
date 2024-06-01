@@ -21,7 +21,7 @@ const Register = () => {
   return (
     <div
       style={{ backgroundImage: `url(${authBg})` }}
-      className='lg:h-screen bg-fixed px-2 md:px-0 bg-color3 bg-blend-multiply py-16 bg-cover bg-center bg-no-repeat'>
+      className='h-screen lg:h-full bg-fixed px-2 md:px-0 bg-color3 bg-blend-multiply py-20 lg:py-16 bg-cover bg-center bg-no-repeat'>
       <div className='md:max-w-lg mx-auto bg-color4 p-5 md:p-8 rounded-xl border-2 border-color2 shadow-xl'>
         <Link
           to='/'
@@ -48,7 +48,7 @@ const Register = () => {
               />
             </div>
             {errors.name && (
-              <p className='text-color10 font-medium mt-1'>Name is required</p>
+              <p className='text-color10 font-medium'>Name is required</p>
             )}
           </div>
           <div>
@@ -62,7 +62,7 @@ const Register = () => {
               />
             </div>
             {errors.email && (
-              <p className='text-color10 font-medium mt-1'>Email is required</p>
+              <p className='text-color10 font-medium'>Email is required</p>
             )}
           </div>
           <div>
@@ -76,9 +76,7 @@ const Register = () => {
               />
             </div>
             {errors.password && (
-              <p className='text-color10 font-medium mt-1'>
-                Password is required
-              </p>
+              <p className='text-color10 font-medium'>Password is required</p>
             )}
           </div>
           <div>
@@ -96,9 +94,6 @@ const Register = () => {
                 <option value='admin'>Admin</option>
               </select>
             </div>
-            {errors.role && (
-              <p className='text-color10 font-medium mt-1'>Role is required</p>
-            )}
           </div>
           <div>
             <div className=''>
@@ -109,7 +104,7 @@ const Register = () => {
               />
             </div>
             {errors.image && (
-              <p className='text-color10 font-medium mt-1'>Image is required</p>
+              <p className='text-color10 font-medium'>Image is required</p>
             )}
           </div>
           <div>
