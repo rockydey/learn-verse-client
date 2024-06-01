@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../../firebase/firebase.config";
+import useAxoisPublic from "../../hooks/useAxoisPublic";
 
 export const AuthContext = createContext(null);
 
@@ -19,6 +20,7 @@ const githubProvider = new GithubAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axoisPublic = useAxoisPublic();
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -55,12 +57,24 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log("Current User : ", currentUser);
       setUser(currentUser);
+
+      if (currentUser) {
+        const userInfo = { email: currentUser.email };
+        axoisPublic.post("/jwt", userInfo).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+          }
+        });
+      } else {
+        localStorage.removeItem("access-token");
+      }
+
       setLoading(false);
     });
+
     return () => unSubscribe();
-  }, []);
+  }, [axoisPublic]);
 
   const authInfo = {
     user,
