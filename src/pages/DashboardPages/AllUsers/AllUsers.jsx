@@ -11,13 +11,15 @@ import {
 } from "flowbite-react";
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
+import { useState } from "react";
 
 const AllUsers = () => {
+  const [query, setQuery] = useState("");
   const axoisSecure = useAxoisSecure();
   const { refetch, data: users = [] } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", query],
     queryFn: async () => {
-      const res = await axoisSecure.get("/users");
+      const res = await axoisSecure.get(`/users?search=${query}`);
       return res.data;
     },
   });
@@ -78,10 +80,29 @@ const AllUsers = () => {
     }
   };
 
+  const handleSearch = (event) => {
+    event.preventDefault();
+    const searchText = event.target.search.value;
+    setQuery(searchText);
+  };
+
   return (
     <div>
       <SectionTitle heading='Manage All Users' subHeading='' />
-      <div className='mt-16'>
+      <div className='mt-10'>
+        <form onSubmit={handleSearch} className='text-center mb-6'>
+          <input
+            type='text'
+            name='search'
+            placeholder='Search user'
+            className='rounded-s-md border-none bg-color7 text-color5'
+          />
+          <input
+            className='bg-color1 cursor-pointer rounded-e-md px-4 py-2 text-base text-color4 font-bold'
+            type='submit'
+            value='Search'
+          />
+        </form>
         <div className='overflow-x-auto'>
           <Table>
             <TableHead className='text-center'>
