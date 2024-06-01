@@ -34,14 +34,14 @@ const Header = () => {
           </NavbarBrand>
           <NavbarToggle />
           <NavbarCollapse>
-            <div className='text-lg my-3 md:my-0 mx-auto md:mx-0 uppercase font-semibold space-x-5 text-color4'>
+            <div className='text-lg my-3 md:my-0 mx-auto md:mx-0 uppercase font-medium space-x-5 text-color4'>
               <Link
-                className='w-fit bg-color1 px-3 py-2 rounded-md'
+                className='w-fit bg-color1 border-2 border-color1 hover:bg-transparent hover:text-color1 duration-700 px-4 py-2 rounded-full'
                 to='/login'>
                 Login
               </Link>
               <Link
-                className='w-fit bg-color2 px-3 py-2 rounded-md'
+                className='w-fit hover:bg-color2 duration-700 hover:text-color4 text-color2 border-2 border-color2 px-4 py-2 rounded-full'
                 to='/register'>
                 Register
               </Link>
