@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import authBg from "../../assets/footer.jpg";
 import { FaUserGraduate, FaRegUser, FaGoogle, FaGithub } from "react-icons/fa";
 import { useForm } from "react-hook-form";
@@ -6,16 +6,64 @@ import "./Register.css";
 import { MdAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { RxDropdownMenu } from "react-icons/rx";
+import useAxoisPublic from "../../hooks/useAxoisPublic";
+import useAuth from "../../hooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
+  const axoisPublic = useAxoisPublic();
+  const { createUser, updateUser } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleRegister = (data) => {
-    console.log(data);
+  const handleRegister = async (data) => {
+    // upload image to imgbb and then get an url
+    const imageFile = { image: data.image[0] };
+    const res = await axoisPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    if (res.data.success) {
+      const name = data.name;
+      const email = data.email;
+      const password = data.password;
+      const role = data.role;
+      const image = res.data.data.display_url;
+
+      createUser(email, password)
+        .then((result) => {
+          console.log("Register", result.user);
+          if (result.user.uid) {
+            updateUser(name, image)
+              .then(() => {
+                const userInfo = {
+                  user_name: name,
+                  user_email: email,
+                  user_image: image,
+                  user_role: role,
+                };
+
+                axoisPublic.post("/users", userInfo).then((res) => {
+                  if (res.data.insertedId) {
+                    navigate("/");
+                  }
+                });
+                
+                toast.success("Registration successful!");
+              })
+              .catch((error) => console.error(error.message));
+          }
+        })
+        .catch((error) => toast.error(error.message));
+    }
   };
 
   return (
@@ -145,6 +193,7 @@ const Register = () => {
           </p>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
