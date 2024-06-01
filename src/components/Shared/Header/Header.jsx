@@ -12,10 +12,12 @@ import { useState } from "react";
 import "./Header.css";
 import useAuth from "../../../hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
+import useRole from "../../../hooks/useRole";
 
 const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { user, logOut } = useAuth();
+  const [userRole] = useRole();
 
   const handleLogout = () => {
     logOut().then(() => {
@@ -55,7 +57,13 @@ const Header = () => {
                   />
                   <Link
                     className='w-fit bg-color1 border-2 border-color1 hover:bg-transparent hover:text-color1 duration-700 px-4 py-2 rounded-full'
-                    to='/dashboard'>
+                    to={`/dashboard/${
+                      userRole?.role === "admin"
+                        ? "users"
+                        : userRole?.role === "teacher"
+                        ? "create-session"
+                        : "booked-session"
+                    }`}>
                     Dashboard
                   </Link>
                   <button

@@ -15,6 +15,15 @@ const Dashboard = () => {
     <div>
       <div className='flex'>
         <div className='w-64 min-h-screen bg-color5'>
+          <p className='text-lg uppercase text-color9'>
+            {userRole?.role === "admin" ? (
+              <span>Admin</span>
+            ) : userRole?.role === "teacher" ? (
+              <span>Teacher</span>
+            ) : (
+              <span>Student</span>
+            )}
+          </p>
           <ul className='text-lg text-color9 px-5 pt-16 font-semibold uppercase'>
             {userRole?.role === "admin" ? (
               <>
