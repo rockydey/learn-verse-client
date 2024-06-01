@@ -8,7 +8,6 @@ import useAuth from "../../hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAxoisPublic from "../../hooks/useAxoisPublic";
-import { useQuery } from "@tanstack/react-query";
 
 const Login = () => {
   const { loginUser, googleLogin, githubLogin } = useAuth();
@@ -19,13 +18,6 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { data: users } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const res = await axoisPublic.get("/users");
-      return res.data;
-    },
-  });
 
   const handleLogin = (data) => {
     const email = data.email;
@@ -56,30 +48,14 @@ const Login = () => {
   const handleGoogleLogin = () => {
     googleLogin()
       .then((result) => {
-        const userEmail = users.find(
-          (user) => user?.user_email === result.user.email
-        );
-        if (userEmail === undefined) {
-          const userInfo = {
-            user_name: result.user.displayName,
-            user_email: result.user.email,
-            user_image: result.user.photoURL,
-            user_role: "student",
-          };
-          console.log("login", userInfo);
-          axoisPublic.post("/users", userInfo).then((res) => {
-            if (res.data.insertedId) {
-              navigate("/");
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Logged in successfully!",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }
-          });
-        } else {
+        const userInfo = {
+          user_name: result.user.displayName,
+          user_email: result.user.email,
+          user_image: result.user.photoURL,
+          user_role: "student",
+        };
+        axoisPublic.post("/users", userInfo).then((res) => {
+          console.log(res.data);
           navigate("/");
           Swal.fire({
             position: "center",
@@ -88,7 +64,7 @@ const Login = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-        }
+        });
       })
       .catch((error) => toast.error(error.message));
   };
