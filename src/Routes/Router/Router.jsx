@@ -6,6 +6,8 @@ import Register from "../../pages/Register/Register";
 import NotFound from "../../pages/NotFound/NotFound";
 import Dashboard from "../../layouts/Dashboard/Dashboard";
 import AllUsers from "../../pages/DashboardPages/AllUsers/AllUsers";
+import BookedSession from "../../pages/DashboardPages/BookedSession/BookedSession";
+import CreateNote from "../../pages/DashboardPages/CreateNote/CreateNote";
 
 const router = createBrowserRouter([
   {
@@ -23,9 +25,22 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard />,
     children: [
+      // admin routes
       {
         path: "users",
         element: <AllUsers />,
+      },
+
+      // teacher routes
+
+      // student routes
+      {
+        path: "booked-session",
+        element: <BookedSession />,
+      },
+      {
+        path: "create-note",
+        element: <CreateNote />,
       },
     ],
   },
