@@ -58,9 +58,9 @@ const Header = () => {
                   <Link
                     className='w-fit bg-color1 border-2 border-color1 hover:bg-transparent hover:text-color1 duration-700 px-4 py-2 rounded-full'
                     to={`/dashboard/${
-                      userRole?.role === "admin"
+                      userRole === "admin"
                         ? "users"
-                        : userRole?.role === "teacher"
+                        : userRole === "teacher"
                         ? "create-session"
                         : "booked-session"
                     }`}>

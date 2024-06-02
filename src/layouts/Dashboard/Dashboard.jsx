@@ -11,11 +11,17 @@ import { MdOutlinePreview } from "react-icons/md";
 import { IoMdLogOut } from "react-icons/io";
 import useAuth from "../../hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { ImCross } from "react-icons/im";
+import { Drawer } from "flowbite-react";
+import { useState } from "react";
 
 const Dashboard = () => {
   const [userRole] = useRole();
   const { logOut } = useAuth();
   const navigate = useNavigate();
+
+  const [isOpen, setIsOpen] = useState(true);
 
   const handleLogout = () => {
     logOut().then(() => {
@@ -26,19 +32,34 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className='flex'>
-        <div className='w-64 min-h-screen bg-color5'>
-          <p className='text-lg uppercase text-color9'>
-            {userRole?.role === "admin" ? (
-              <span>Admin</span>
-            ) : userRole?.role === "teacher" ? (
-              <span>Teacher</span>
-            ) : (
-              <span>Student</span>
-            )}
-          </p>
-          <ul className='text-lg text-color9 px-5 pt-16 font-semibold uppercase'>
-            {userRole?.role === "admin" ? (
+      <Toaster />
+      <div className=''>
+        <div className='relative'>
+          <button
+            className='text-2xl p-3 bg-color5 text-color4 right-5 top-5 rounded-md absolute'
+            onClick={() => setIsOpen(!isOpen)}>
+            <GiHamburgerMenu />
+          </button>
+        </div>
+        <div className='py-16 max-w-screen-xl mx-auto'>
+          <Outlet />
+        </div>
+      </div>
+      <Drawer
+        className='bg-color5 '
+        open={isOpen}
+        onClose={() => setIsOpen(!isOpen)}>
+        <div className='text-color5 flex text-lg items-center font-semibold font-merriweather justify-between pl-5 uppercase mt-4 mb-6'>
+          <h3 className='text-color2'>{userRole} Dashboard</h3>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className='bg-color4 text-xs p-2 rounded-full'>
+            <ImCross />
+          </button>
+        </div>
+        <Drawer.Items>
+          <ul className='text-lg text-color9 px-5 font-semibold uppercase'>
+            {userRole === "admin" ? (
               <>
                 <li>
                   <NavLink
@@ -62,7 +83,7 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
               </>
-            ) : userRole?.role === "teacher" ? (
+            ) : userRole === "teacher" ? (
               <>
                 <li>
                   <NavLink
@@ -153,12 +174,8 @@ const Dashboard = () => {
               </button>
             </li>
           </ul>
-        </div>
-        <div className='flex-1 p-16'>
-          <Outlet />
-        </div>
-      </div>
-      <Toaster />
+        </Drawer.Items>
+      </Drawer>
     </div>
   );
 };
