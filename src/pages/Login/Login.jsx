@@ -55,7 +55,7 @@ const Login = () => {
           user_role: "student",
         };
         axoisPublic.post("/users", userInfo).then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           navigate("/");
           Swal.fire({
             position: "center",

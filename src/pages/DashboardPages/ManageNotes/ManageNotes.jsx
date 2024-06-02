@@ -2,13 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useAxoisSecure from "../../../hooks/useAxoisSecure";
 import StudentNote from "./StudentNote";
+import useAuth from "../../../hooks/useAuth";
 
 const ManageNotes = () => {
+  const { user } = useAuth();
   const axoisSecure = useAxoisSecure();
   const { refetch, data: notes = [] } = useQuery({
-    queryKey: ["notes"],
+    queryKey: [user?.email, "notes"],
     queryFn: async () => {
-      const res = await axoisSecure.get("/student-notes");
+      const res = await axoisSecure.get(`/student-notes/${user?.email}`);
       return res.data;
     },
   });

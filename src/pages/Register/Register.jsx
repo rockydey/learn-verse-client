@@ -10,6 +10,7 @@ import useAxoisPublic from "../../hooks/useAxoisPublic";
 import useAuth from "../../hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -34,6 +35,9 @@ const Register = () => {
     } else {
       setRegError("");
     }
+    if (data.role === "choose") {
+      return toast.error("Please choose user role!");
+    }
 
     // upload image to imgbb and then get an url
     const imageFile = { image: data.image[0] };
@@ -54,6 +58,15 @@ const Register = () => {
           if (result.user.uid) {
             updateUser(name, image)
               .then(() => {
+                navigate("/");
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Registration successful!",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+
                 const userInfo = {
                   user_name: name,
                   user_email: email,
@@ -63,12 +76,11 @@ const Register = () => {
 
                 axoisPublic.post("/users", userInfo).then((res) => {
                   if (res.data.insertedId) {
-                    navigate("/");
+                    //
                   }
                 });
               })
               .catch((error) => console.error(error.message));
-            toast.success("Registration successful!");
           }
         })
         .catch((error) => toast.error(error.message));

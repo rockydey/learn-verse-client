@@ -92,11 +92,11 @@ const CreateNote = () => {
               <p className='text-color10 font-medium'>Title is required</p>
             )}
           </div>
-          <div className='text-end'>
+          <div className='text-start'>
             <input
               type='submit'
               value='Create Note'
-              className='bg-color1 px-4 py-3 font-semibold text-base text-color4 uppercase cursor-pointer'
+              className='bg-color1 rounded-md px-4 py-3 font-semibold text-base text-color4 uppercase cursor-pointer'
             />
           </div>
         </form>

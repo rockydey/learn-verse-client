@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useAuth from "../../../hooks/useAuth";
 import moment from "moment";
 import toast, { Toaster } from "react-hot-toast";
+import useAxoisSecure from "../../../hooks/useAxoisSecure";
 
 const CreateSession = () => {
+  const axoisSecure = useAxoisSecure();
   const { user } = useAuth();
   const [date1, setDate1] = useState("");
   const [date2, setDate2] = useState("");
@@ -52,7 +54,15 @@ const CreateSession = () => {
       reviews: [],
     };
 
-    console.log(sessionInfo);
+    axoisSecure
+      .post("/sessions", sessionInfo)
+      .then((res) => {
+        if (res.data.insertedId) {
+          toast.success("Session created successfully!");
+          form.reset();
+        }
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (
