@@ -8,6 +8,7 @@ import Dashboard from "../../layouts/Dashboard/Dashboard";
 import AllUsers from "../../pages/DashboardPages/AllUsers/AllUsers";
 import BookedSession from "../../pages/DashboardPages/BookedSession/BookedSession";
 import CreateNote from "../../pages/DashboardPages/CreateNote/CreateNote";
+import ManageNotes from "../../pages/DashboardPages/ManageNotes/ManageNotes";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "create-note",
         element: <CreateNote />,
+      },
+      {
+        path: "manage-notes",
+        element: <ManageNotes />,
       },
     ],
   },
