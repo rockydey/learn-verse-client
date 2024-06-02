@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import useRole from "../../hooks/useRole";
 import "./Dashboard.css";
 import { FaUsers, FaFileUpload, FaRegFilePdf, FaHome } from "react-icons/fa";
@@ -8,9 +8,22 @@ import { TbBrandBooking } from "react-icons/tb";
 import { FaNotesMedical, FaNoteSticky } from "react-icons/fa6";
 import { GrView } from "react-icons/gr";
 import { MdOutlinePreview } from "react-icons/md";
+import { IoMdLogOut } from "react-icons/io";
+import useAuth from "../../hooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
 
 const Dashboard = () => {
   const [userRole] = useRole();
+  const { logOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logOut().then(() => {
+      navigate("/login");
+    });
+    toast.success("Logged out successfully!");
+  };
+
   return (
     <div>
       <div className='flex'>
@@ -127,10 +140,17 @@ const Dashboard = () => {
             </li>
             <li>
               <NavLink
-                className='flex gap-3 items-center'
+                className='flex gap-3 items-center mb-3'
                 to='/view-all-sessions'>
                 <SiSession /> View All Sessions
               </NavLink>
+            </li>
+            <li>
+              <button
+                onClick={handleLogout}
+                className='text-lg flex items-center gap-3 text-color9 font-semibold uppercase'>
+                <IoMdLogOut /> Logout
+              </button>
             </li>
           </ul>
         </div>
@@ -138,6 +158,7 @@ const Dashboard = () => {
           <Outlet />
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

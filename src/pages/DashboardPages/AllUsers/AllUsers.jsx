@@ -44,6 +44,8 @@ const AllUsers = () => {
                   title: "Congratulation!",
                   text: "You have been promote to Admin",
                   icon: "success",
+                  showConfirmButton: false,
+                  timer: 2000,
                 });
                 refetch();
               }
@@ -70,6 +72,8 @@ const AllUsers = () => {
                   title: "Congratulation!",
                   text: "You have been promote to Teacher",
                   icon: "success",
+                  showConfirmButton: false,
+                  timer: 2000,
                 });
                 refetch();
               }
