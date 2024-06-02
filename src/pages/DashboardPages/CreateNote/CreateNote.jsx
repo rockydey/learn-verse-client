@@ -47,7 +47,7 @@ const CreateNote = () => {
             <label
               htmlFor='email'
               className='text-lg font-semibold text-color5'>
-              Email:
+              Email :
             </label>
             <input
               id='email'
@@ -61,7 +61,7 @@ const CreateNote = () => {
             <label
               htmlFor='title'
               className='text-lg font-semibold text-color5'>
-              Title:
+              Title :
             </label>
             <input
               id='title'
@@ -78,7 +78,7 @@ const CreateNote = () => {
             <label
               htmlFor='description'
               className='text-lg font-semibold text-color5'>
-              Description:
+              Description :
             </label>
             <textarea
               rows={5}

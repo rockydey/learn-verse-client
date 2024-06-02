@@ -1,6 +1,8 @@
 form input[type="text"],
 form input[type="password"],
 form input[type="email"],
+form input[type="date"],
+form input[type="number"],
 form select,
 form textarea {
   box-shadow: none !important;

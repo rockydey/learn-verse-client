@@ -9,6 +9,7 @@ import AllUsers from "../../pages/DashboardPages/AllUsers/AllUsers";
 import BookedSession from "../../pages/DashboardPages/BookedSession/BookedSession";
 import CreateNote from "../../pages/DashboardPages/CreateNote/CreateNote";
 import ManageNotes from "../../pages/DashboardPages/ManageNotes/ManageNotes";
+import CreateSession from "../../pages/DashboardPages/CreateSession/CreateSession";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       },
 
       // teacher routes
+      {
+        path: "create-session",
+        element: <CreateSession />,
+      },
 
       // student routes
       {
