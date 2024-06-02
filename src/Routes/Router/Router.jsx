@@ -10,6 +10,7 @@ import BookedSession from "../../pages/DashboardPages/BookedSession/BookedSessio
 import CreateNote from "../../pages/DashboardPages/CreateNote/CreateNote";
 import ManageNotes from "../../pages/DashboardPages/ManageNotes/ManageNotes";
 import CreateSession from "../../pages/DashboardPages/CreateSession/CreateSession";
+import ViewSessions from "../../pages/DashboardPages/ViewSessions/ViewSessions";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "create-session",
         element: <CreateSession />,
+      },
+      {
+        path: "view-sessions",
+        element: <ViewSessions />,
       },
 
       // student routes
