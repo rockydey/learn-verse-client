@@ -18,8 +18,9 @@ import { RiDeleteBinLine } from "react-icons/ri";
 const AllSessions = () => {
   const axoisSecure = useAxoisSecure();
   const [openModal, setOpenModal] = useState(false);
+  const [rejectModal, setRejectModal] = useState(false);
   const [type, setType] = useState("");
-  const [approveId, setApproveId] = useState(null);
+  const [id, setId] = useState(null);
   const { refetch, data: allSessions = [] } = useQuery({
     queryKey: ["allSessions"],
     queryFn: async () => {
@@ -31,14 +32,38 @@ const AllSessions = () => {
   const handleUpdatePrice = (event) => {
     event.preventDefault();
     setOpenModal(false);
+
     const form = event.target;
     const regAmount = form.regAmount.value;
 
     axoisSecure
-      .patch(`/sessions/${approveId}`, { regAmount })
+      .patch(`/sessions/${id}`, { regAmount })
       .then((res) => {
-        if (res.data.modifiedCount) {
+        if (res.data.modifiedCount > 0) {
           toast.success("Registration fee updated!");
+          refetch();
+        }
+      })
+      .catch((error) => toast.error(error.message));
+  };
+
+  const handleRejectReason = (event) => {
+    event.preventDefault();
+    setRejectModal(false);
+    const form = event.target;
+    const rejReason = form.rejReason.value;
+    const feedback = form.feedback.value;
+
+    const feedbackInfo = {
+      rejReason,
+      feedback,
+    };
+
+    axoisSecure
+      .patch(`/rejectSession/${id}`, feedbackInfo)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          toast.success("Session rejected successfully!");
           refetch();
         }
       })
@@ -75,7 +100,7 @@ const AllSessions = () => {
                           <TableCell>
                             <button
                               onClick={() => {
-                                setApproveId(session._id);
+                                setId(session._id);
                                 setOpenModal(!openModal);
                               }}
                               className={`bg-color1 px-2 py-1 rounded capitalize text-color4 font-semibold`}>
@@ -84,6 +109,10 @@ const AllSessions = () => {
                           </TableCell>
                           <TableCell>
                             <button
+                              onClick={() => {
+                                setId(session._id);
+                                setRejectModal(!rejectModal);
+                              }}
                               className={`bg-color10 px-2 py-1 rounded capitalize text-color4 font-semibold`}>
                               Reject
                             </button>
@@ -142,8 +171,8 @@ const AllSessions = () => {
                     Registration Amount:
                   </label>
                   <input
-                    rows={5}
                     id='regAmount'
+                    name='regAmount'
                     type='number'
                     defaultValue={0}
                     readOnly={type === "free"}
@@ -154,7 +183,59 @@ const AllSessions = () => {
                   <input
                     type='submit'
                     value='Update Fee'
-                    className='bg-color1 px-4 py-3 font-semibold text-base text-color4 uppercase cursor-pointer'
+                    className='bg-color1 rounded-md px-4 py-3 font-semibold text-base text-color4 uppercase cursor-pointer'
+                  />
+                </div>
+              </form>
+            </div>
+          </Modal.Body>
+        </Modal>
+      </div>
+      <div>
+        <Modal
+          show={rejectModal}
+          size='xl'
+          onClose={() => setRejectModal(!rejectModal)}
+          popup>
+          <Modal.Header className='bg-color5 text-color9 border-b-0' />
+          <Modal.Body className=' bg-color5  rounded-b'>
+            <div className=''>
+              <h5 className='text-2xl mb-5 text-center font-bold font-merriweather text-color1'>
+                Rejection Feedback
+              </h5>
+              <form
+                onSubmit={handleRejectReason}
+                className='max-w-md mx-auto text-color9 rounded-xl  space-y-4'>
+                <div className='space-y-1'>
+                  <label htmlFor='rejReason' className='text-lg font-semibold '>
+                    Rejection Reason :
+                  </label>
+                  <input
+                    id='rejReason'
+                    name='rejReason'
+                    type='text'
+                    placeholder='Rejection reason'
+                    className='w-full border-0 bg-color7 text-color5 rounded-md'
+                  />
+                </div>
+                <div className='space-y-1'>
+                  <label htmlFor='feedback' className='text-lg font-semibold '>
+                    Feedback:
+                  </label>
+                  <textarea
+                    rows={4}
+                    id='feedback'
+                    type='text'
+                    name='feedback'
+                    placeholder='Feedback'
+                    className='w-full border-0 bg-color7 text-color5 rounded-md'
+                  />
+                </div>
+                <div className='text-center'>
+                  <input
+                    type='submit'
+                    value='Send Feedback'
+                    className='bg-color1 rounded-md px-4 py-3 font-semibold text-base text-color4 uppercase cursor-pointer'
                   />
                 </div>
               </form>

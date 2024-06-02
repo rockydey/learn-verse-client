@@ -54,19 +54,19 @@ const ViewSessions = () => {
                       {session.status}
                     </button>
                   </TableCell>
-                  {session.session === "reject" && (
-                    <TableCell>
-                      <button className='px-2 bg-color11 py-1 rounded capitalize text-color4 font-semibold'>
-                        Sent Again
-                      </button>
-                    </TableCell>
-                  )}
-                  {session.session === "reject" && (
-                    <TableCell>
-                      <button className='px-2 bg-color5 py-1 rounded capitalize text-color4 font-semibold'>
-                        Feedback
-                      </button>
-                    </TableCell>
+                  {session.status === "reject" && (
+                    <>
+                      <TableCell>
+                        <button className='px-2 bg-color11 py-1 rounded capitalize text-color4 font-semibold'>
+                          Send Again
+                        </button>
+                      </TableCell>
+                      <TableCell>
+                        <button className='px-2 bg-color5 py-1 rounded capitalize text-color4 font-semibold'>
+                          Feedback
+                        </button>
+                      </TableCell>
+                    </>
                   )}
                 </TableRow>
               ))}
