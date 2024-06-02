@@ -11,6 +11,7 @@ import CreateNote from "../../pages/DashboardPages/CreateNote/CreateNote";
 import ManageNotes from "../../pages/DashboardPages/ManageNotes/ManageNotes";
 import CreateSession from "../../pages/DashboardPages/CreateSession/CreateSession";
 import ViewSessions from "../../pages/DashboardPages/ViewSessions/ViewSessions";
+import AllSessions from "../../pages/DashboardPages/AllSessions/AllSessions";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "users",
         element: <AllUsers />,
+      },
+      {
+        path: "all-sessions",
+        element: <AllSessions />,
       },
 
       // teacher routes
