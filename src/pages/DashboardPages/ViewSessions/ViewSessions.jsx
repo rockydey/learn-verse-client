@@ -52,6 +52,16 @@ const ViewSessions = () => {
     });
   };
 
+  const handleRequestAgain = (id) => {
+    const status = { status: "pending" };
+    axoisSecure.patch(`/sessionStatus/${id}`, status).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        toast.success("Request send successfully!");
+        refetch();
+      }
+    });
+  };
+
   return (
     <div>
       <SectionTitle heading='View All Sessions' subHeading='' />
@@ -81,7 +91,9 @@ const ViewSessions = () => {
                   {session.status === "reject" && (
                     <>
                       <TableCell className='space-x-4'>
-                        <button className='px-2 bg-color11 py-1 rounded capitalize text-color4 font-semibold'>
+                        <button
+                          onClick={() => handleRequestAgain(session._id)}
+                          className='px-2 bg-color11 py-1 rounded capitalize text-color4 font-semibold'>
                           Send Again
                         </button>
                         <span>OR</span>
