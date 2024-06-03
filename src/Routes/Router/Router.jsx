@@ -13,6 +13,7 @@ import CreateSession from "../../pages/DashboardPages/CreateSession/CreateSessio
 import ViewSessions from "../../pages/DashboardPages/ViewSessions/ViewSessions";
 import AllSessions from "../../pages/DashboardPages/AllSessions/AllSessions";
 import UploadMaterials from "../../pages/DashboardPages/UploadMaterials/UploadMaterials";
+import ViewMaterials from "../../pages/DashboardPages/UploadMaterials/ViewMaterials";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "upload-materials",
         element: <UploadMaterials />,
+      },
+      {
+        path: "view-materials",
+        element: <ViewMaterials />,
       },
 
       // student routes
