@@ -12,6 +12,7 @@ import ManageNotes from "../../pages/DashboardPages/ManageNotes/ManageNotes";
 import CreateSession from "../../pages/DashboardPages/CreateSession/CreateSession";
 import ViewSessions from "../../pages/DashboardPages/ViewSessions/ViewSessions";
 import AllSessions from "../../pages/DashboardPages/AllSessions/AllSessions";
+import UploadMaterials from "../../pages/DashboardPages/UploadMaterials/UploadMaterials";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "view-sessions",
         element: <ViewSessions />,
+      },
+      {
+        path: "upload-materials",
+        element: <UploadMaterials />,
       },
 
       // student routes

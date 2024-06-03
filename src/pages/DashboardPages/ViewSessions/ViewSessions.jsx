@@ -1,6 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import useAuth from "../../../hooks/useAuth";
 import useAxoisSecure from "../../../hooks/useAxoisSecure";
 import { Table, TableBody, TableCell, TableRow } from "flowbite-react";
 import { useState } from "react";
@@ -8,19 +6,13 @@ import { Modal } from "flowbite-react";
 import { RiDeleteBinLine } from "react-icons/ri";
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
+import useSessionData from "../../../hooks/useSessionData";
 
 const ViewSessions = () => {
-  const { user } = useAuth();
+  const [sessions, refetch] = useSessionData();
   const [feedback, setFeedback] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const axoisSecure = useAxoisSecure();
-  const { data: sessions = [], refetch } = useQuery({
-    queryKey: [user?.email, "sessions"],
-    queryFn: async () => {
-      const res = await axoisSecure.get(`/sessions/${user.email}`);
-      return res.data;
-    },
-  });
 
   const handleDeleteSession = (id) => {
     Swal.fire({
@@ -84,8 +76,12 @@ const ViewSessions = () => {
                           : session.status === "reject"
                           ? "bg-color10"
                           : "bg-color11"
-                      } px-2 py-1 rounded cursor-default capitalize text-color4 font-semibold`}>
-                      {session.status}
+                      } px-2 py-1 rounded cursor-default uppercase text-color4 font-semibold`}>
+                      {session.status === "approve"
+                        ? "Approved"
+                        : session.status === "reject"
+                        ? "Rejected"
+                        : "Pending"}
                     </button>
                   </TableCell>
                   {session.status === "reject" && (
