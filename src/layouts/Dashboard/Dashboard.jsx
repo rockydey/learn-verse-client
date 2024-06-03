@@ -36,7 +36,7 @@ const Dashboard = () => {
       <div className=''>
         <div className='relative'>
           <button
-            className='text-2xl p-3 bg-color5 text-color4 right-5 top-5 rounded-md absolute'
+            className='text-2xl p-3 bg-color5 text-color4 absolute top-5 right-5 rounded-md '
             onClick={() => setIsOpen(!isOpen)}>
             <GiHamburgerMenu />
           </button>

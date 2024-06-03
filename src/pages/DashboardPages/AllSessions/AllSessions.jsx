@@ -14,6 +14,7 @@ import { Modal } from "flowbite-react";
 import toast, { Toaster } from "react-hot-toast";
 import { GrUpdate } from "react-icons/gr";
 import { RiDeleteBinLine } from "react-icons/ri";
+import Swal from "sweetalert2";
 
 const AllSessions = () => {
   const axoisSecure = useAxoisSecure();
@@ -70,6 +71,36 @@ const AllSessions = () => {
       .catch((error) => toast.error(error.message));
   };
 
+  const handleDeleteSession = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#2ECA7F",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axoisSecure
+          .delete(`/sessions/${id}`)
+          .then((res) => {
+            if (res.data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Session has been deleted.",
+                icon: "success",
+                showCloseButton: false,
+                timer: 1500,
+              });
+              refetch();
+            }
+          })
+          .catch((error) => toast.error(error.message));
+      }
+    });
+  };
+
   return (
     <div>
       <SectionTitle heading='Manage All Sessions' subHeading='' />
@@ -77,20 +108,20 @@ const AllSessions = () => {
         <div className='overflow-x-auto'>
           <Table>
             <TableHead className='text-center'>
-              <TableHeadCell>Index</TableHeadCell>
               <TableHeadCell>Tutor Name</TableHeadCell>
               <TableHeadCell>Tutor Email</TableHeadCell>
               <TableHeadCell>Session Title</TableHeadCell>
               <TableHeadCell>Category</TableHeadCell>
+              <TableHeadCell></TableHeadCell>
+              <TableHeadCell></TableHeadCell>
             </TableHead>
             <TableBody className='divide-y'>
               {allSessions.map(
-                (session, index) =>
+                (session) =>
                   session.status !== "reject" && (
                     <TableRow
                       key={session._id}
                       className='text-color5 text-base font-medium text-center'>
-                      <TableCell>{index + 1}</TableCell>
                       <TableCell className=''>{session.tutor_name}</TableCell>
                       <TableCell>{session.tutor_email}</TableCell>
                       <TableCell>{session.session_title}</TableCell>
@@ -122,13 +153,14 @@ const AllSessions = () => {
                         <>
                           <TableCell>
                             <button
-                              className={`bg-color1 p-2 rounded-full capitalize text-color4 font-semibold`}>
+                              className={`bg-color1 p-2 rounded-full text-color4 font-semibold`}>
                               <GrUpdate />
                             </button>
                           </TableCell>
                           <TableCell>
                             <button
-                              className={`bg-color10 p-2 rounded-full capitalize text-color4 font-semibold`}>
+                              onClick={() => handleDeleteSession(session._id)}
+                              className={`bg-color10 p-2 rounded-full text-color4 font-semibold`}>
                               <RiDeleteBinLine />
                             </button>
                           </TableCell>
