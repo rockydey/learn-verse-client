@@ -20,6 +20,8 @@ const AllSessions = () => {
   const axoisSecure = useAxoisSecure();
   const [openModal, setOpenModal] = useState(false);
   const [rejectModal, setRejectModal] = useState(false);
+  const [updateModal, setUpdateModal] = useState(false);
+  const [updateSession, setUpdateSession] = useState(null);
   const [type, setType] = useState("");
   const [id, setId] = useState(null);
   const { refetch, data: allSessions = [] } = useQuery({
@@ -101,6 +103,44 @@ const AllSessions = () => {
     });
   };
 
+  const handleUpdateSession = (event) => {
+    event.preventDefault();
+    setUpdateModal(false);
+
+    const form = event.target;
+
+    const session_title = form.sessionTitle.value;
+    const session_description = form.sessionDes.value;
+    const session_duration = form.sessionDuration.value;
+    const session_category = form.sessionCategory.value;
+    const registration_fee = form.regFee.value;
+    const status = form.status.value;
+    const registration_start = form.regStart.value;
+    const registration_end = form.regEnd.value;
+    const class_start = form.classStart.value;
+    const class_end = form.classEnd.value;
+
+    const updateInfo = {
+      session_title,
+      session_description,
+      session_duration,
+      session_category,
+      registration_fee,
+      status,
+      registration_start,
+      registration_end,
+      class_start,
+      class_end,
+    };
+
+    axoisSecure.patch(`/updateSession/${id}`, updateInfo).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        toast.success("Session updated successfully!");
+        refetch();
+      }
+    });
+  };
+
   return (
     <div>
       <SectionTitle heading='Manage All Sessions' subHeading='' />
@@ -108,10 +148,12 @@ const AllSessions = () => {
         <div className='overflow-x-auto'>
           <Table>
             <TableHead className='text-center'>
-              <TableHeadCell>Tutor Name</TableHeadCell>
               <TableHeadCell>Tutor Email</TableHeadCell>
               <TableHeadCell>Session Title</TableHeadCell>
               <TableHeadCell>Category</TableHeadCell>
+              <TableHeadCell>Registration Start</TableHeadCell>
+              <TableHeadCell>Registration End</TableHeadCell>
+              <TableHeadCell>Fee</TableHeadCell>
               <TableHeadCell></TableHeadCell>
               <TableHeadCell></TableHeadCell>
             </TableHead>
@@ -122,10 +164,12 @@ const AllSessions = () => {
                     <TableRow
                       key={session._id}
                       className='text-color5 text-base font-medium text-center'>
-                      <TableCell className=''>{session.tutor_name}</TableCell>
                       <TableCell>{session.tutor_email}</TableCell>
                       <TableCell>{session.session_title}</TableCell>
                       <TableCell>{session.session_category}</TableCell>
+                      <TableCell>{session.registration_start}</TableCell>
+                      <TableCell>{session.registration_end}</TableCell>
+                      <TableCell>${session.registration_fee}</TableCell>
                       {session.status === "pending" ? (
                         <>
                           <TableCell>
@@ -153,6 +197,11 @@ const AllSessions = () => {
                         <>
                           <TableCell>
                             <button
+                              onClick={() => {
+                                setUpdateModal(!updateModal);
+                                setId(session._id);
+                                setUpdateSession(session);
+                              }}
                               className={`bg-color1 p-2 rounded-full text-color4 font-semibold`}>
                               <GrUpdate />
                             </button>
@@ -268,6 +317,182 @@ const AllSessions = () => {
                     type='submit'
                     value='Send Feedback'
                     className='bg-color1 rounded-md px-4 py-3 font-semibold text-base text-color4 uppercase cursor-pointer'
+                  />
+                </div>
+              </form>
+            </div>
+          </Modal.Body>
+        </Modal>
+      </div>
+      <div>
+        <Modal
+          show={updateModal}
+          size='2xl'
+          onClose={() => setUpdateModal(!updateModal)}
+          popup>
+          <Modal.Header className='bg-color5 text-color9 border-b-0' />
+          <Modal.Body className=' bg-color5  rounded-b'>
+            <div className=''>
+              <h5 className='text-2xl mb-5 text-center font-bold font-merriweather text-color1'>
+                Update Session
+              </h5>
+              <form
+                onSubmit={handleUpdateSession}
+                className='space-y-3 text-color5 p-8 rounded-xl'>
+                <div className='space-y-1'>
+                  <label
+                    className='text-color9 font-semibold text-base'
+                    htmlFor='sessionTitle'>
+                    Session Title :
+                  </label>
+                  <input
+                    id='sessionTitle'
+                    type='text'
+                    name='sessionTitle'
+                    defaultValue={updateSession?.session_title}
+                    className='w-full border-0 bg-color7 rounded-md'
+                  />
+                </div>
+                <div className='space-y-1'>
+                  <label
+                    className='text-color9 font-semibold text-base'
+                    htmlFor='sessionDes'>
+                    Session Description :
+                  </label>
+                  <textarea
+                    rows={3}
+                    id='sessionDes'
+                    name='sessionDes'
+                    type='text'
+                    defaultValue={updateSession?.session_description}
+                    className='w-full border-0 bg-color7 rounded-md'
+                  />
+                </div>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                  <div className='space-y-1'>
+                    <label
+                      className='text-color9 font-semibold text-base'
+                      htmlFor='regStart'>
+                      Registration Start Date :
+                    </label>
+                    <input
+                      id='regStart'
+                      name='regStart'
+                      type='date'
+                      defaultValue={updateSession?.registration_start}
+                      className='w-full border-0 bg-color7 rounded-md'
+                    />
+                  </div>
+                  <div className='space-y-1'>
+                    <label
+                      className='text-color9 font-semibold text-base'
+                      htmlFor='regEnd'>
+                      Registration End Date :
+                    </label>
+                    <input
+                      id='regEnd'
+                      name='regEnd'
+                      type='date'
+                      defaultValue={updateSession?.registration_end}
+                      className='w-full border-0 bg-color7 rounded-md'
+                    />
+                  </div>
+                </div>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                  <div className='space-y-1'>
+                    <label
+                      className='text-color9 font-semibold text-base'
+                      htmlFor='classStart'>
+                      Class Start Date :
+                    </label>
+                    <input
+                      id='classStart'
+                      name='classStart'
+                      type='date'
+                      defaultValue={updateSession?.class_start}
+                      className='w-full border-0 bg-color7 rounded-md'
+                    />
+                  </div>
+                  <div className='space-y-1'>
+                    <label
+                      className='text-color9 font-semibold text-base'
+                      htmlFor='classEnd'>
+                      Class End Date :
+                    </label>
+                    <input
+                      id='classEnd'
+                      name='classEnd'
+                      type='date'
+                      defaultValue={updateSession?.class_end}
+                      className='w-full border-0 bg-color7 rounded-md'
+                    />
+                  </div>
+                </div>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                  <div className='space-y-1'>
+                    <label
+                      className='text-color9 font-semibold text-base'
+                      htmlFor='sessionDuration'>
+                      Session Duration :
+                    </label>
+                    <input
+                      id='sessionDuration'
+                      name='sessionDuration'
+                      type='number'
+                      defaultValue={updateSession?.session_duration}
+                      className='w-full border-0 bg-color7 rounded-md'
+                    />
+                  </div>
+                  <div className='space-y-1'>
+                    <label
+                      className='text-color9 font-semibold text-base'
+                      htmlFor='sessionCategory'>
+                      Session Category :
+                    </label>
+                    <input
+                      id='sessionCategory'
+                      name='sessionCategory'
+                      type='text'
+                      defaultValue={updateSession?.session_category}
+                      className='w-full border-0 bg-color7 rounded-md'
+                    />
+                  </div>
+                </div>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                  <div className='space-y-1'>
+                    <label
+                      className='text-color9 font-semibold text-base'
+                      htmlFor='regFee'>
+                      Registration Fee :
+                    </label>
+                    <input
+                      id='regFee'
+                      name='regFee'
+                      type='number'
+                      defaultValue={updateSession?.registration_fee}
+                      className='w-full border-0 bg-color7 rounded-md'
+                    />
+                  </div>
+                  <div className='space-y-1'>
+                    <label
+                      className='text-color6 font-semibold text-base'
+                      htmlFor='status'>
+                      Status :
+                    </label>
+                    <input
+                      id='status'
+                      name='status'
+                      type='text'
+                      defaultValue={updateSession?.status}
+                      className='w-full border-0 bg-color7 rounded-md'
+                    />
+                  </div>
+                </div>
+                <div className='text-center pt-3'>
+                  <input
+                    className='bg-color1 cursor-pointer uppercase text-lg rounded-md font-medium text-color4 px-4 py-3'
+                    type='submit'
+                    value='Update Session'
                   />
                 </div>
               </form>

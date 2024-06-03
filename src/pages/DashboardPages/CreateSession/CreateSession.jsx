@@ -87,7 +87,7 @@ const CreateSession = () => {
               className='w-full border-0 bg-color7 rounded-md'
             />
           </div>
-          <div className='grid grid-cols-2 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             <div className='space-y-1'>
               <label
                 className='text-color6 font-semibold text-base'
@@ -135,7 +135,7 @@ const CreateSession = () => {
               className='w-full border-0 bg-color7 rounded-md'
             />
           </div>
-          <div className='grid grid-cols-2 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             <div className='space-y-1'>
               <label
                 className='text-color6 font-semibold text-base'
@@ -167,7 +167,7 @@ const CreateSession = () => {
               />
             </div>
           </div>
-          <div className='grid grid-cols-2 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             <div className='space-y-1'>
               <label
                 className='text-color6 font-semibold text-base'
@@ -199,7 +199,7 @@ const CreateSession = () => {
               />
             </div>
           </div>
-          <div className='grid grid-cols-2 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             <div className='space-y-1'>
               <label
                 className='text-color6 font-semibold text-base'
@@ -231,7 +231,7 @@ const CreateSession = () => {
               />
             </div>
           </div>
-          <div className='grid grid-cols-2 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             <div className='space-y-1'>
               <label
                 className='text-color6 font-semibold text-base'
