@@ -3,10 +3,11 @@ import useAxoisSecure from "../../../hooks/useAxoisSecure";
 import { useState } from "react";
 import { Modal } from "flowbite-react";
 import toast, { Toaster } from "react-hot-toast";
+import { MdGppBad, MdGppGood } from "react-icons/md";
 
 const StudentNote = ({ note, refetch }) => {
   const axoisSecure = useAxoisSecure();
-  const { title, _id, description } = note;
+  const { title, _id, description, review } = note;
   const [openModal, setOpenModal] = useState(false);
   const [updateId, setUpdateId] = useState(null);
 
@@ -63,7 +64,20 @@ const StudentNote = ({ note, refetch }) => {
   return (
     <div className='p-6 shadow-lg border-2 space-y-6 border-color7 rounded-lg flex flex-col'>
       <div className='flex-none'>
-        <h3 className='text-2xl text-color5 text-center font-bold'>{title}</h3>
+        <h3 className='text-2xl flex items-center justify-center gap-1 text-color5 font-bold'>
+          {title}{" "}
+          <span>
+            {review === "reviewed" ? (
+              <span className='text-color1'>
+                <MdGppGood />
+              </span>
+            ) : (
+              <span className='text-color10'>
+                <MdGppBad />
+              </span>
+            )}
+          </span>
+        </h3>
       </div>
       <div className='flex-grow text-base font-medium text-color6'>
         <p>{description}</p>
