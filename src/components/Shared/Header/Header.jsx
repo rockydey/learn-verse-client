@@ -8,25 +8,16 @@ import {
 import { FaUserGraduate } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import DarkModeToggle from "react-dark-mode-toggle";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Header.css";
 import useAuth from "../../../hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
-import useAxoisPublic from "../../../hooks/useAxoisPublic";
+import useRole from "../../../hooks/useRole";
 
 const Header = () => {
-  const axiosPublic = useAxoisPublic();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { user, logOut } = useAuth();
-  const [role, setRole] = useState(null);
-
-  useEffect(() => {
-    if (user !== null) {
-      axiosPublic
-        .get(`/userRole/${user.email}`)
-        .then((res) => setRole(res.data));
-    }
-  }, [user, axiosPublic]);
+  const [userRole] = useRole();
 
   const handleLogout = () => {
     logOut().then(() => {
@@ -67,9 +58,9 @@ const Header = () => {
                   <Link
                     className='w-fit bg-color1 border-2 border-color1 hover:bg-transparent hover:text-color1 duration-700 px-4 py-2 rounded-full'
                     to={`/dashboard/${
-                      role?.role === "admin"
+                      userRole === "admin"
                         ? "users"
-                        : role?.role === "teacher"
+                        : userRole === "teacher"
                         ? "create-session"
                         : "booked-session"
                     }`}>

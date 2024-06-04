@@ -40,7 +40,7 @@ const ViewNotes = () => {
                 onClick={() => handleReview(note._id)}
                 className={` ${
                   note.review === "reviewed"
-                    ? "border-2 border-color1 text-color1"
+                    ? "border-2 border-color1 cursor-not-allowed text-color1"
                     : "bg-color11 text-color4"
                 }  px-3 py-2 rounded  font-medium`}>
                 {note.review === "reviewed" ? "Reviewed" : "Review"}

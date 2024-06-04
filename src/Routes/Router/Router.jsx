@@ -20,6 +20,7 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import TeacherRoute from "../TeacherRoute/TeacherRoute";
 import StudentRoute from "../StudentRoute/StudentRoute";
+import AllStudySessions from "../../pages/AllStudySessions/AllStudySessions";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/study-sessions",
+        element: <AllStudySessions />,
       },
     ],
   },

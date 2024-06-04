@@ -12,11 +12,12 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { ImCross } from "react-icons/im";
 import { Drawer } from "flowbite-react";
 import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
 
 const Dashboard = () => {
   const [userRole] = useRole();
-
   const [isOpen, setIsOpen] = useState(true);
+  const { user } = useAuth();
 
   return (
     <div>
@@ -36,14 +37,18 @@ const Dashboard = () => {
         className='bg-color5 '
         open={isOpen}
         onClose={() => setIsOpen(!isOpen)}>
-        <div className='text-color5 flex text-lg items-center font-semibold font-merriweather justify-between pl-5 uppercase mt-4 mb-6'>
-          <h3 className='text-color2'>{userRole} Dashboard</h3>
+        <div className='text-color5 flex text-lg items-center font-semibold font-merriweather justify-between pl-5 uppercase mb-3 mt-4'>
+          <h3 className='text-color1'>{userRole} Dashboard</h3>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className='bg-color4 text-xs p-2 rounded-full'>
             <ImCross />
           </button>
         </div>
+        <p className='pl-5 font-merriweather text-color4 font-semibold text-xl'>
+          Welcome {user?.displayName}
+        </p>
+        <div className='my-8 border-b-2 border-color6'></div>
         <Drawer.Items>
           <ul className='text-lg text-color9 px-5 font-semibold uppercase'>
             {userRole === "admin" ? (

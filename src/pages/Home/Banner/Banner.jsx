@@ -1,6 +1,7 @@
 import bannerImg from "../../../assets/banner.png";
 import bannerGirl from "../../../assets/banner-image.png";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -21,11 +22,11 @@ const Banner = () => {
               insights, and collective growth. Join the movement toward academic
               excellence. Start now!
             </p>
-            <a
-              href='#sessions'
+            <Link
+              to='study-sessions'
               className='flex border-2 w-fit px-4 py-3 rounded-lg hover:bg-transparent bg-color1 text-color4 border-color1 hover:text-color1 items-center gap-3 text-lg font-medium uppercase duration-500'>
               Explore Sessions <FaRegArrowAltCircleRight />
-            </a>
+            </Link>
           </div>
           <div className='md:w-1/2'>
             <img className='lg:w-[95%]' src={bannerGirl} alt='' />

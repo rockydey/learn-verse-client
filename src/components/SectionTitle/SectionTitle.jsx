@@ -10,7 +10,7 @@ const SectionTitle = ({ heading, subHeading }) => {
         <div className='border-b-[3px] border-color1 w-16'></div>
         <div className='border-[3px] w-4 h-4 border-color1 rounded-full'></div>
       </div>
-      <h4>{subHeading}</h4>
+      <h4 className='mt-3 text-lg text-color6 capitalize'>{subHeading}</h4>
     </div>
   );
 };
