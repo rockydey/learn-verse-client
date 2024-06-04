@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useAuth from "../../../hooks/useAuth";
 import useAxoisSecure from "../../../hooks/useAxoisSecure";
+import { Modal } from "flowbite-react";
 import {
   Table,
   TableBody,
@@ -14,10 +15,14 @@ import { GrUpdate } from "react-icons/gr";
 import { RiDeleteBinLine } from "react-icons/ri";
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
+import { useState } from "react";
 
 const ViewMaterials = () => {
   const { user } = useAuth();
   const axoisSecure = useAxoisSecure();
+  const [updateMaterial, setUpdateMaterial] = useState({});
+  const [id, setId] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
   const { data: materials = [], refetch } = useQuery({
     queryKey: [user?.email, "materials"],
     queryFn: async () => {
@@ -47,6 +52,29 @@ const ViewMaterials = () => {
     });
   };
 
+  const handleUpdateMaterial = (event) => {
+    event.preventDefault();
+    const form = event.target;
+
+    const title = form.title.value;
+    const driveLink = form.link.value;
+    const image = form.imgLink.value;
+
+    const updateInfo = {
+      title,
+      driveLink,
+      image,
+    };
+
+    axoisSecure.patch(`/materials/${id}`, updateInfo).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        toast.success("Material updated successfully!");
+        refetch();
+        setOpenModal(!openModal);
+      }
+    });
+  };
+
   return (
     <div>
       <SectionTitle heading='View All Materials' subHeading='' />
@@ -72,6 +100,11 @@ const ViewMaterials = () => {
                   <TableCell>{material.session_title}</TableCell>
                   <TableCell>
                     <button
+                      onClick={() => {
+                        setUpdateMaterial(material);
+                        setOpenModal(!openModal);
+                        setId(material._id);
+                      }}
                       className={`bg-color1 p-2 rounded-full text-color4 font-semibold`}>
                       <GrUpdate />
                     </button>
@@ -88,6 +121,66 @@ const ViewMaterials = () => {
             </TableBody>
           </Table>
         </div>
+        <Modal
+          show={openModal}
+          size='xl'
+          onClose={() => setOpenModal(!openModal)}
+          popup>
+          <Modal.Header className='bg-color5 text-color9 border-b-0' />
+          <Modal.Body className=' bg-color5  rounded-b'>
+            <div className=''>
+              <h5 className='text-2xl mb-5 text-center font-bold font-merriweather text-color1'>
+                Update Material
+              </h5>
+              <form
+                onSubmit={handleUpdateMaterial}
+                className='max-w-md mx-auto text-color9 rounded-xl  space-y-4'>
+                <div className='space-y-1'>
+                  <label htmlFor='title' className='text-lg font-semibold '>
+                    Section Title:
+                  </label>
+                  <input
+                    id='title'
+                    type='text'
+                    defaultValue={updateMaterial.session_title}
+                    className='w-full border-0 bg-color7 text-color5 rounded-md'
+                  />
+                </div>
+                <div className='space-y-1'>
+                  <label htmlFor='link' className='text-lg font-semibold '>
+                    Drive Link:
+                  </label>
+                  <input
+                    id='link'
+                    name='link'
+                    type='text'
+                    defaultValue={updateMaterial.link}
+                    className='w-full border-0 bg-color7 text-color5 rounded-md'
+                  />
+                </div>
+                <div className='space-y-1'>
+                  <label htmlFor='imgLink' className='text-lg font-semibold '>
+                    Image Link:
+                  </label>
+                  <input
+                    id='imgLink'
+                    name='imgLink'
+                    type='text'
+                    defaultValue={updateMaterial.image}
+                    className='w-full border-0 bg-color7 text-color5 rounded-md'
+                  />
+                </div>
+                <div className='text-center'>
+                  <input
+                    type='submit'
+                    value='Update'
+                    className='bg-color1 rounded-md px-4 py-3 font-semibold text-base text-color4 uppercase cursor-pointer'
+                  />
+                </div>
+              </form>
+            </div>
+          </Modal.Body>
+        </Modal>
       </div>
       <Toaster />
     </div>

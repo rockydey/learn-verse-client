@@ -36,14 +36,14 @@ const UploadMaterial = ({ session }) => {
       const title = data.title;
       const sessionId = data.sessionId;
       const tutorEmail = data.tutorEmail;
-      const diveLink = data.link;
+      const driveLink = data.link;
       const image = res.data.data.display_url;
 
       const materialInfo = {
         session_title: title,
         study_session_id: sessionId,
         tutor_email: tutorEmail,
-        link: diveLink,
+        link: driveLink,
         image,
       };
 
