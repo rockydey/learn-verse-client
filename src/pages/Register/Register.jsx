@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import authBg from "../../assets/footer.jpg";
 import { FaUserGraduate, FaRegUser } from "react-icons/fa";
 import { useForm } from "react-hook-form";
@@ -20,6 +20,7 @@ const Register = () => {
   const axoisPublic = useAxoisPublic();
   const { createUser, updateUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -58,7 +59,7 @@ const Register = () => {
           if (result.user.uid) {
             updateUser(name, image)
               .then(() => {
-                navigate("/");
+                navigate(location.state?.from?.pathname || "/");
                 Swal.fire({
                   position: "center",
                   icon: "success",

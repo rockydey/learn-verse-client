@@ -16,6 +16,10 @@ import UploadMaterials from "../../pages/DashboardPages/UploadMaterials/UploadMa
 import ViewMaterials from "../../pages/DashboardPages/UploadMaterials/ViewMaterials";
 import AllMaterials from "../../pages/DashboardPages/AllMaterials/AllMaterials";
 import ViewNotes from "../../pages/DashboardPages/ViewNotes/ViewNotes";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import AdminRoute from "../AdminRoute/AdminRoute";
+import TeacherRoute from "../TeacherRoute/TeacherRoute";
+import StudentRoute from "../StudentRoute/StudentRoute";
 
 const router = createBrowserRouter([
   {
@@ -31,56 +35,104 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
     children: [
       // admin routes
       {
         path: "users",
-        element: <AllUsers />,
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: "all-sessions",
-        element: <AllSessions />,
+        element: (
+          <AdminRoute>
+            <AllSessions />
+          </AdminRoute>
+        ),
       },
       {
         path: "all-materials",
-        element: <AllMaterials />,
+        element: (
+          <AdminRoute>
+            <AllMaterials />
+          </AdminRoute>
+        ),
       },
 
       // teacher routes
       {
         path: "create-session",
-        element: <CreateSession />,
+        element: (
+          <TeacherRoute>
+            <CreateSession />
+          </TeacherRoute>
+        ),
       },
       {
         path: "view-sessions",
-        element: <ViewSessions />,
+        element: (
+          <TeacherRoute>
+            <ViewSessions />
+          </TeacherRoute>
+        ),
       },
       {
         path: "upload-materials",
-        element: <UploadMaterials />,
+        element: (
+          <TeacherRoute>
+            <UploadMaterials />
+          </TeacherRoute>
+        ),
       },
       {
         path: "view-materials",
-        element: <ViewMaterials />,
+        element: (
+          <TeacherRoute>
+            <ViewMaterials />
+          </TeacherRoute>
+        ),
       },
       {
         path: "view-notes",
-        element: <ViewNotes />,
+        element: (
+          <TeacherRoute>
+            <ViewNotes />
+          </TeacherRoute>
+        ),
       },
 
       // student routes
       {
         path: "booked-session",
-        element: <BookedSession />,
+        element: (
+          <StudentRoute>
+            <BookedSession />
+          </StudentRoute>
+        ),
       },
       {
         path: "create-note",
-        element: <CreateNote />,
+        element: (
+          <StudentRoute>
+            <CreateNote />
+          </StudentRoute>
+        ),
       },
       {
         path: "manage-notes",
-        element: <ManageNotes />,
+        element: (
+          <StudentRoute>
+            <ManageNotes />
+          </StudentRoute>
+        ),
       },
     ],
   },

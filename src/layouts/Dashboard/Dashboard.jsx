@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import useRole from "../../hooks/useRole";
 import "./Dashboard.css";
 import { FaUsers, FaFileUpload, FaRegFilePdf, FaHome } from "react-icons/fa";
@@ -8,9 +8,6 @@ import { TbBrandBooking } from "react-icons/tb";
 import { FaNotesMedical, FaNoteSticky } from "react-icons/fa6";
 import { GrView } from "react-icons/gr";
 import { MdOutlinePreview } from "react-icons/md";
-import { IoMdLogOut } from "react-icons/io";
-import useAuth from "../../hooks/useAuth";
-import toast, { Toaster } from "react-hot-toast";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { ImCross } from "react-icons/im";
 import { Drawer } from "flowbite-react";
@@ -18,21 +15,11 @@ import { useState } from "react";
 
 const Dashboard = () => {
   const [userRole] = useRole();
-  const { logOut } = useAuth();
-  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(true);
 
-  const handleLogout = () => {
-    logOut().then(() => {
-      navigate("/login");
-    });
-    toast.success("Logged out successfully!");
-  };
-
   return (
     <div>
-      <Toaster />
       <div className=''>
         <div className='relative'>
           <button
@@ -165,13 +152,6 @@ const Dashboard = () => {
                 to='/view-all-sessions'>
                 <SiSession /> View All Sessions
               </NavLink>
-            </li>
-            <li>
-              <button
-                onClick={handleLogout}
-                className='text-lg flex items-center gap-3 text-color9 font-semibold uppercase'>
-                <IoMdLogOut /> Logout
-              </button>
             </li>
           </ul>
         </Drawer.Items>

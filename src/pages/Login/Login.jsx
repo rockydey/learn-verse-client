@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import authBg from "../../assets/footer.jpg";
 import { FaUserGraduate, FaGoogle, FaGithub } from "react-icons/fa";
 import { useForm } from "react-hook-form";
@@ -13,6 +13,7 @@ const Login = () => {
   const { loginUser, googleLogin, githubLogin } = useAuth();
   const axoisPublic = useAxoisPublic();
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -26,7 +27,7 @@ const Login = () => {
     loginUser(email, password)
       .then((result) => {
         if (result.user.uid) {
-          navigate("/");
+          navigate(location.state?.from?.pathname || "/");
           Swal.fire({
             position: "center",
             icon: "success",
@@ -56,7 +57,7 @@ const Login = () => {
         };
         axoisPublic.post("/users", userInfo).then((res) => {
           // console.log(res.data);
-          navigate("/");
+          navigate(location.state?.from?.pathname || "/");
           Swal.fire({
             position: "center",
             icon: "success",
@@ -73,7 +74,7 @@ const Login = () => {
     githubLogin()
       .then((result) => {
         if (result.user.uid) {
-          navigate("/");
+          navigate(location.state?.from?.pathname || "/");
           Swal.fire({
             position: "center",
             icon: "success",
