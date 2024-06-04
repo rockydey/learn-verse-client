@@ -14,6 +14,7 @@ import ViewSessions from "../../pages/DashboardPages/ViewSessions/ViewSessions";
 import AllSessions from "../../pages/DashboardPages/AllSessions/AllSessions";
 import UploadMaterials from "../../pages/DashboardPages/UploadMaterials/UploadMaterials";
 import ViewMaterials from "../../pages/DashboardPages/UploadMaterials/ViewMaterials";
+import AllMaterials from "../../pages/DashboardPages/AllMaterials/AllMaterials";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "all-sessions",
         element: <AllSessions />,
+      },
+      {
+        path: "all-materials",
+        element: <AllMaterials />,
       },
 
       // teacher routes
