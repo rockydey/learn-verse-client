@@ -11,6 +11,7 @@ import useAuth from "../../hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -23,9 +24,11 @@ const Register = () => {
   const location = useLocation();
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const selectRole = watch("role", "");
 
   const handleRegister = async (data) => {
     if (!/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(data.password)) {
@@ -52,6 +55,7 @@ const Register = () => {
       const email = data.email;
       const password = data.password;
       const role = data.role;
+      const subject = data.subject;
       const image = res.data.data.display_url;
 
       createUser(email, password)
@@ -68,12 +72,24 @@ const Register = () => {
                   timer: 1500,
                 });
 
-                const userInfo = {
-                  user_name: name,
-                  user_email: email,
-                  user_image: image,
-                  user_role: role,
-                };
+                let userInfo = {};
+
+                if (selectRole === "teacher") {
+                  userInfo = {
+                    user_name: name,
+                    user_email: email,
+                    user_image: image,
+                    user_role: role,
+                    specialist: subject,
+                  };
+                } else {
+                  userInfo = {
+                    user_name: name,
+                    user_email: email,
+                    user_image: image,
+                    user_role: role,
+                  };
+                }
 
                 axoisPublic.post("/users", userInfo).then((res) => {
                   if (res.data.insertedId) {
@@ -154,6 +170,7 @@ const Register = () => {
             <div className='flex items-center gap-3 border-2 px-4'>
               <RxDropdownMenu className='text-color6 text-xl' />
               <select
+                name='role'
                 defaultValue='choose'
                 className='w-full text-lg focus-visible:outline-none border-none text-color5'
                 {...register("role", { required: true })}>
@@ -166,6 +183,22 @@ const Register = () => {
               </select>
             </div>
           </div>
+          {selectRole === "teacher" && (
+            <div>
+              <div className='flex items-center gap-3 border-2 px-4'>
+                <LiaChalkboardTeacherSolid className='text-color6 text-xl' />
+                <input
+                  type='text'
+                  className='w-full text-lg focus-visible:outline-none border-none text-color5'
+                  placeholder='Subject'
+                  {...register("subject", { required: true })}
+                />
+              </div>
+              {errors.subject && (
+                <p className='text-color10 font-medium'>Password is required</p>
+              )}
+            </div>
+          )}
           <div>
             <div className=''>
               <input

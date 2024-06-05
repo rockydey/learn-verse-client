@@ -31,7 +31,7 @@ const Teachers = () => {
             spaceBetween={30}
             freeMode={true}
             autoplay={{
-              delay: 2500,
+              delay: 1500,
               disableOnInteraction: false,
             }}
             pagination={{
@@ -41,7 +41,7 @@ const Teachers = () => {
             className='mySwiper'>
             {teachers.map((teacher) => (
               <SwiperSlide key={teacher._id}>
-                <div className='bg-color7 px-5 pt-5'>
+                <div className='bg-color9 px-5 pt-5'>
                   <div className="flex justify-center">
                     <img
                       className='rounded-full w-80'
