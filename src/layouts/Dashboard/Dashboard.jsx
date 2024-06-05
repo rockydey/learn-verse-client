@@ -154,8 +154,8 @@ const Dashboard = () => {
             <li>
               <NavLink
                 className='flex gap-3 items-center mb-3'
-                to='/view-all-sessions'>
-                <SiSession /> View All Sessions
+                to='/study-sessions'>
+                <SiSession /> See All Sessions
               </NavLink>
             </li>
           </ul>

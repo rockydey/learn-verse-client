@@ -21,7 +21,7 @@ const StudySessions = () => {
         subHeading='Explore your learning path with our top courses'
       />
       <div className='mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {studySessions.slice(0, 6).map((studySession) => (
+        {studySessions.slice(-6).map((studySession) => (
           <StudySession
             key={studySession._id}
             studySession={studySession}></StudySession>
