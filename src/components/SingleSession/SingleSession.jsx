@@ -8,8 +8,10 @@ import { TbTimeDuration45 } from "react-icons/tb";
 import { FaStar } from "react-icons/fa6";
 import moment from "moment";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const SingleSession = () => {
+  const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
   const [userRole] = useRole();
@@ -23,6 +25,7 @@ const SingleSession = () => {
   });
 
   const {
+    _id,
     session_title,
     tutor_name,
     session_description,
@@ -42,6 +45,9 @@ const SingleSession = () => {
   const handleBookNow = () => {
     if (parseInt(registration_fee) === 0) {
       const bookingInfo = {
+        session_id: _id,
+        user_email: user?.email,
+        session_description,
         session_title,
         tutor_name,
         tutor_email: session.tutor_email,

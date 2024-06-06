@@ -22,6 +22,7 @@ import TeacherRoute from "../TeacherRoute/TeacherRoute";
 import StudentRoute from "../StudentRoute/StudentRoute";
 import AllStudySessions from "../../pages/AllStudySessions/AllStudySessions";
 import SingleSession from "../../components/SingleSession/SingleSession";
+import BookedDetails from "../../components/BookedDetails/BookedDetails";
 
 const router = createBrowserRouter([
   {
@@ -129,6 +130,14 @@ const router = createBrowserRouter([
         element: (
           <StudentRoute>
             <BookedSession />
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "booked-session/:id",
+        element: (
+          <StudentRoute>
+            <BookedDetails />
           </StudentRoute>
         ),
       },

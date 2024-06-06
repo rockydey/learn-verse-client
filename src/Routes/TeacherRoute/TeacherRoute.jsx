@@ -13,11 +13,13 @@ const TeacherRoute = ({ children }) => {
   }
 
   if (loading || roleLoading) {
-    <div>
-      <p className='flex justify-center h-[50vh] pt-52'>
-        <HashLoader size={50} color='#2ECA7F' />
-      </p>
-    </div>;
+    return (
+      <div>
+        <p className='flex justify-center h-[50vh] pt-52'>
+          <HashLoader size={50} color='#2ECA7F' />
+        </p>
+      </div>
+    );
   }
 
   return <Navigate to='/' state={{ from: location }}></Navigate>;
