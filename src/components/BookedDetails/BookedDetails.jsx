@@ -10,13 +10,14 @@ import { render } from "react-dom";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
+import StarRatingComponent from "react-rating-stars-component";
 
 const BookedDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const [studentRating, setStudentRating] = useState(null);
   const axoisSecure = useAxoisSecure();
-  const { data: bookedSession = [] } = useQuery({
+  const { data: bookedSession = [], refetch } = useQuery({
     queryKey: ["booked-session"],
     queryFn: async () => {
       const res = await axoisSecure.get(`/booked-session/${id}`);
@@ -35,6 +36,14 @@ const BookedDetails = () => {
     session_category,
   } = bookedSession;
 
+  const { data: feedbacks = [] } = useQuery({
+    queryKey: [session_id, "feedbacks"],
+    queryFn: async () => {
+      const res = await axoisSecure.get(`/feedbacks/${session_id}`);
+      return res.data;
+    },
+  });
+
   const ratingChanged = (newRating) => {
     setStudentRating(newRating);
   };
@@ -47,13 +56,14 @@ const BookedDetails = () => {
       session_id,
       rating: studentRating,
       feedback,
-      user_email: user?.email,
+      user_name: user?.displayName,
     };
 
     axoisSecure.post("/feedbacks", feedbackInfo).then((res) => {
       if (res.data.insertedId) {
         toast.success("Thank you for feedback!");
         event.target.reset();
+        refetch();
       }
     });
   };
@@ -91,9 +101,36 @@ const BookedDetails = () => {
           </div>
         </div>
       </div>
+      <div className='mt-10'>
+        <h2 className='text-center text-color1 font-merriweather text-2xl font-bold'>
+          Students Feedback
+        </h2>
+        <div className='border-b-2 w-32 border-color1 mx-auto'></div>
+        <div className='mt-5'>
+          {feedbacks.map((feedback) => (
+            <div key={feedback._id} className='text-center mb-10'>
+              <h3 className='text-xl font-semibold text-color5'>
+                {feedback.user_name}
+              </h3>
+              <div className='flex justify-center'>
+                <StarRatingComponent
+                  activeColor='#FFC600'
+                  starCount={5}
+                  size={32}
+                  value={feedback.rating}
+                  edit={false}
+                />
+              </div>
+              <p className='text-base text-color6 font-medium'>
+                {feedback.feedback}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
       <div className='mt-10 border-2 border-color6 p-10 rounded-xl'>
         <h2 className='text-center font-merriweather text-2xl font-bold'>
-          Feedback Session
+          Add Feedback
         </h2>
         <form onSubmit={handleAddFeedback} className='mt-5 space-y-2'>
           <div className='flex items-center gap-4'>
@@ -106,7 +143,7 @@ const BookedDetails = () => {
               emptyIcon={<i className='far fa-star'></i>}
               halfIcon={<i className='fa fa-star-half-alt'></i>}
               fullIcon={<i className='fa fa-star'></i>}
-              activeColor='#ffd700'
+              activeColor='#FFC600'
             />
           </div>
           <div className=''>
