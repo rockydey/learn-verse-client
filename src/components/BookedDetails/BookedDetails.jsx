@@ -17,7 +17,7 @@ const BookedDetails = () => {
   const { user } = useAuth();
   const [studentRating, setStudentRating] = useState(null);
   const axoisSecure = useAxoisSecure();
-  const { data: bookedSession = [], refetch } = useQuery({
+  const { data: bookedSession = [] } = useQuery({
     queryKey: ["booked-session"],
     queryFn: async () => {
       const res = await axoisSecure.get(`/booked-session/${id}`);
@@ -36,7 +36,7 @@ const BookedDetails = () => {
     session_category,
   } = bookedSession;
 
-  const { data: feedbacks = [] } = useQuery({
+  const { data: feedbacks = [], refetch } = useQuery({
     queryKey: [session_id, "feedbacks"],
     queryFn: async () => {
       const res = await axoisSecure.get(`/feedbacks/${session_id}`);

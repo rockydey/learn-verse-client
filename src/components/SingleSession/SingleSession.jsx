@@ -131,7 +131,7 @@ const SingleSession = () => {
           <div className='flex items-center gap-1'>
             <p className='font-medium'>Average Rating :</p>{" "}
             <p className='flex items-center gap-1 text-color2'>
-              <span>{averageRate}</span>
+              <span>{averageRate ? averageRate : 0}</span>
               <FaStar />
             </p>
           </div>
@@ -157,33 +157,35 @@ const SingleSession = () => {
           )}
         </div>
       </div>
-      <div className='mt-10 border-2 border-color2 p-10 rounded-xl'>
-        <h2 className='text-center text-color1 font-merriweather text-2xl font-bold'>
-          Students Feedback
-        </h2>
-        <div className='border-b-2 w-32 border-color1 mx-auto'></div>
-        <div className='mt-5'>
-          {feedbacks.map((feedback) => (
-            <div key={feedback._id} className='text-center mb-10'>
-              <h3 className='text-xl font-semibold text-color5'>
-                {feedback.user_name}
-              </h3>
-              <div className='flex justify-center'>
-                <StarRatingComponent
-                  activeColor='#FFC600'
-                  starCount={5}
-                  size={32}
-                  value={feedback.rating}
-                  edit={false}
-                />
+      {feedbacks.length !== 0 && (
+        <div className='mt-10 border-2 border-color2 p-10 rounded-xl'>
+          <h2 className='text-center text-color1 font-merriweather text-2xl font-bold'>
+            Students Feedback
+          </h2>
+          <div className='border-b-2 w-32 border-color1 mx-auto'></div>
+          <div className='mt-5'>
+            {feedbacks.map((feedback) => (
+              <div key={feedback._id} className='text-center mb-10'>
+                <h3 className='text-xl font-semibold text-color5'>
+                  {feedback.user_name}
+                </h3>
+                <div className='flex justify-center'>
+                  <StarRatingComponent
+                    activeColor='#FFC600'
+                    starCount={5}
+                    size={32}
+                    value={feedback.rating}
+                    edit={false}
+                  />
+                </div>
+                <p className='text-base text-color6 font-medium'>
+                  {feedback.feedback}
+                </p>
               </div>
-              <p className='text-base text-color6 font-medium'>
-                {feedback.feedback}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
