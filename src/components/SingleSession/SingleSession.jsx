@@ -1,15 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxoisSecure from "../../hooks/useAxoisSecure";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useRole from "../../hooks/useRole";
 import { GiTeacher } from "react-icons/gi";
 import { MdCategory } from "react-icons/md";
 import { TbTimeDuration45 } from "react-icons/tb";
 import { FaStar } from "react-icons/fa6";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 const SingleSession = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [userRole] = useRole();
   const axoisSecure = useAxoisSecure();
   const { data: session = [] } = useQuery({
@@ -35,6 +37,37 @@ const SingleSession = () => {
 
   const date1 = moment(registration_end);
   const date2 = moment(new Date());
+  const date3 = moment(new Date()).format("YYYY-MM-DD");
+
+  const handleBookNow = () => {
+    if (parseInt(registration_fee) === 0) {
+      const bookingInfo = {
+        session_title,
+        tutor_name,
+        tutor_email: session.tutor_email,
+        class_start: class_start,
+        class_end: class_end,
+        session_duration,
+        session_category,
+        booking_date: date3,
+      };
+
+      axoisSecure.post("/bookings", bookingInfo).then((res) => {
+        if (res.data.insertedId) {
+          navigate("/dashboard/booked-session");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `${session_title} booked successfully!`,
+            confirmButtonText: "Okay",
+            confirmButtonColor: "#2ECA7F",
+          });
+        }
+      });
+    } else {
+      //
+    }
+  };
 
   return (
     <div className='mt-16 md:max-w-2xl lg:max-w-screen-sm mx-auto px-2 md:px-4 lg:px-0 py-20 md:py-24'>
@@ -94,6 +127,7 @@ const SingleSession = () => {
             </button>
           ) : (
             <button
+              onClick={handleBookNow}
               disabled={userRole === "admin" || userRole === "teacher"}
               className='px-4 py-3 disabled:bg-[#cccccc] disabled:text-[#666666] w-fit disabled:cursor-not-allowed bg-color1 text-color4 font-semibold'>
               Book Now
