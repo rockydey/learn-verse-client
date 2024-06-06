@@ -27,7 +27,6 @@ const Teachers = () => {
         />
         <div className='mt-10 '>
           <Swiper
-            slidesPerView={3}
             spaceBetween={30}
             freeMode={true}
             autoplay={{
@@ -37,12 +36,26 @@ const Teachers = () => {
             pagination={{
               clickable: true,
             }}
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+            }}
             modules={[FreeMode, Autoplay, Pagination]}
             className='mySwiper'>
             {teachers.map((teacher) => (
               <SwiperSlide key={teacher._id}>
                 <div className='bg-color9 px-5 pt-5'>
-                  <div className="flex justify-center">
+                  <div className='flex justify-center'>
                     <img
                       className='rounded-full w-80'
                       src={teacher.user_image}

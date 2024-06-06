@@ -51,7 +51,6 @@ const CreateSession = () => {
       session_category,
       registration_fee,
       status,
-      reviews: [],
     };
 
     axoisSecure

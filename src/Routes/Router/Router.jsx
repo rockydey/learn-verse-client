@@ -21,6 +21,7 @@ import AdminRoute from "../AdminRoute/AdminRoute";
 import TeacherRoute from "../TeacherRoute/TeacherRoute";
 import StudentRoute from "../StudentRoute/StudentRoute";
 import AllStudySessions from "../../pages/AllStudySessions/AllStudySessions";
+import SingleSession from "../../components/SingleSession/SingleSession";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,14 @@ const router = createBrowserRouter([
       {
         path: "/study-sessions",
         element: <AllStudySessions />,
+      },
+      {
+        path: "/session/:id",
+        element: (
+          <PrivateRoute>
+            <SingleSession />
+          </PrivateRoute>
+        ),
       },
     ],
   },
