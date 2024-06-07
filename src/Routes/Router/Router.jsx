@@ -23,6 +23,7 @@ import StudentRoute from "../StudentRoute/StudentRoute";
 import AllStudySessions from "../../pages/AllStudySessions/AllStudySessions";
 import SingleSession from "../../components/SingleSession/SingleSession";
 import BookedDetails from "../../components/BookedDetails/BookedDetails";
+import Payment from "../../pages/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <SingleSession />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/payment/:id",
+        element: (
+          <PrivateRoute>
+            <Payment />
           </PrivateRoute>
         ),
       },

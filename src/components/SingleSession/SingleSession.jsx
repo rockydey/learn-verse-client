@@ -86,7 +86,7 @@ const SingleSession = () => {
         }
       });
     } else {
-      //
+      navigate(`/payment/${_id}`);
     }
   };
 
