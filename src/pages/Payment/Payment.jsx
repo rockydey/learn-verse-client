@@ -20,15 +20,17 @@ const Payment = () => {
   });
 
   return (
-    <div className='mt-16 max-w-screen-xl mx-auto py-24'>
-      <SectionTitle
-        heading='Payment Here'
-        subHeading='Thank you for choosing the session.'
-      />
-      <div className='mt-10 max-w-md mx-auto'>
-        <Elements stripe={stripePromise}>
-          <CheckOutForm session={session} />
-        </Elements>
+    <div className='dark:bg-color3'>
+      <div className='mt-16 max-w-screen-xl mx-auto py-24'>
+        <SectionTitle
+          heading='Payment Here'
+          subHeading='Thank you for choosing the session.'
+        />
+        <div className='mt-10 max-w-md mx-auto'>
+          <Elements stripe={stripePromise}>
+            <CheckOutForm session={session} />
+          </Elements>
+        </div>
       </div>
     </div>
   );

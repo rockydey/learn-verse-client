@@ -103,7 +103,7 @@ const CheckOutForm = ({ session }) => {
           style: {
             base: {
               fontSize: "16px",
-              color: "#212121",
+              color: "#757575",
               "::placeholder": {
                 color: "#aab7c4",
               },

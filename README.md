@@ -1,10 +1,6 @@
 # #Welcome to [LearnVerse](https://learn-verse-auth.web.app)
 
----
-
 LearnVerse is a **Collaborative Study Platform** website which is built using MERN Stack technology. This website basically an education online platform where student can book sessions created by expert teacher.
-
----
 
 ## Features of LearnVerse
 
