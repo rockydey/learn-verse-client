@@ -24,6 +24,8 @@ import AllStudySessions from "../../pages/AllStudySessions/AllStudySessions";
 import SingleSession from "../../components/SingleSession/SingleSession";
 import BookedDetails from "../../components/BookedDetails/BookedDetails";
 import Payment from "../../pages/Payment/Payment";
+import StudyMaterials from "../../pages/DashboardPages/StudyMaterials/StudyMaterials";
+import StudyMaterial from "../../pages/DashboardPages/StudyMaterials/StudyMaterial";
 
 const router = createBrowserRouter([
   {
@@ -163,6 +165,22 @@ const router = createBrowserRouter([
         element: (
           <StudentRoute>
             <ManageNotes />
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "study-materials",
+        element: (
+          <StudentRoute>
+            <StudyMaterials />
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "study-materials/:id",
+        element: (
+          <StudentRoute>
+            <StudyMaterial />
           </StudentRoute>
         ),
       },

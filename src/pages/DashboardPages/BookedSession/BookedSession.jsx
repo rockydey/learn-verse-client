@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import useAxoisSecure from "../../../hooks/useAxoisSecure";
-import { useQuery } from "@tanstack/react-query";
 import {
   Table,
   TableBody,
@@ -10,18 +8,10 @@ import {
   TableHeadCell,
   TableRow,
 } from "flowbite-react";
-import useAuth from "../../../hooks/useAuth";
+import useBookedSession from "../../../hooks/useBookedSession";
 
 const BookedSession = () => {
-  const { user } = useAuth();
-  const axoisSecure = useAxoisSecure();
-  const { data: bookedSessions = [] } = useQuery({
-    queryKey: [user?.email, "booked-session"],
-    queryFn: async () => {
-      const res = await axoisSecure.get(`/booked-session?email=${user.email}`);
-      return res.data;
-    },
-  });
+  const bookedSessions = useBookedSession();
 
   return (
     <div>

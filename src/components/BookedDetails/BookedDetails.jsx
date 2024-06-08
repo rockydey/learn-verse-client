@@ -6,7 +6,6 @@ import { GiTeacher } from "react-icons/gi";
 import { TbTimeDuration45 } from "react-icons/tb";
 import { MdCategory } from "react-icons/md";
 import ReactStars from "react-rating-stars-component";
-import { render } from "react-dom";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
