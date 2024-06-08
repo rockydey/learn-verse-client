@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { RiDeleteBinLine } from "react-icons/ri";
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
+import { FaGoogleDrive } from "react-icons/fa";
 
 const AllMaterials = () => {
   const axoisSecure = useAxoisSecure();
@@ -46,7 +47,7 @@ const AllMaterials = () => {
   };
 
   return (
-    <div>
+    <div className='px-2 md:px-4 lg:px-0'>
       <SectionTitle heading='Manage All Materials' subHeading='' />
       <div className='mt-10'>
         <div className='overflow-x-auto'>
@@ -73,9 +74,9 @@ const AllMaterials = () => {
                   <TableCell>
                     <Link
                       target='_black'
-                      className='bg-color1 text-color4 px-3 py-2'
+                      className='bg-color1 flex items-center p-2 rounded-full w-fit mx-auto text-color4'
                       to={material.link}>
-                      View Link
+                      <FaGoogleDrive />
                     </Link>
                   </TableCell>
                   <TableCell>

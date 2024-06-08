@@ -55,7 +55,7 @@ const ViewSessions = () => {
   };
 
   return (
-    <div>
+    <div className='px-2 md:px-4 lg:px-0'>
       <SectionTitle heading='View All Sessions' subHeading='' />
       <div className='mt-10'>
         <div className='overflow-x-auto'>
@@ -86,7 +86,7 @@ const ViewSessions = () => {
                   </TableCell>
                   {session.status === "reject" && (
                     <>
-                      <TableCell className='space-x-4'>
+                      <TableCell className='flex flex-col lg:flex-row gap-1 lg:gap-4 items-center'>
                         <button
                           onClick={() => handleRequestAgain(session._id)}
                           className='px-2 bg-color11 py-1 rounded capitalize text-color4 font-semibold'>
@@ -95,7 +95,7 @@ const ViewSessions = () => {
                         <span>OR</span>
                         <button
                           onClick={() => handleDeleteSession(session._id)}
-                          className={`bg-color10 p-2 rounded-full text-color4 font-semibold`}>
+                          className={`bg-color10 p-2 rounded-full w-fit text-color4 font-semibold`}>
                           <RiDeleteBinLine />
                         </button>
                       </TableCell>

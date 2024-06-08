@@ -65,7 +65,7 @@ const CreateSession = () => {
   };
 
   return (
-    <div>
+    <div className='px-2 md:px-4 lg:px-0'>
       <SectionTitle heading='Create New Session' subHeading='' />
       <div className='mt-10 max-w-screen-sm mx-auto'>
         <form

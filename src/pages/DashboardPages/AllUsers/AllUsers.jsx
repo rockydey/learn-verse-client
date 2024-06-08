@@ -91,7 +91,7 @@ const AllUsers = () => {
   };
 
   return (
-    <div>
+    <div className="px-2 md:px-4 lg:px-0">
       <SectionTitle heading='Manage All Users' subHeading='' />
       <div className='mt-10'>
         <form onSubmit={handleSearch} className='text-center mb-6'>
@@ -129,7 +129,7 @@ const AllUsers = () => {
                       alt=''
                     />
                   </TableCell>
-                  <TableCell>{user.user_name}</TableCell>
+                  <TableCell className="px-0 md:px-6">{user.user_name}</TableCell>
                   <TableCell>{user.user_email}</TableCell>
                   <TableCell className=''>
                     <button

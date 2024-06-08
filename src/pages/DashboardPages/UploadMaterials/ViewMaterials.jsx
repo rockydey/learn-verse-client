@@ -76,7 +76,7 @@ const ViewMaterials = () => {
   };
 
   return (
-    <div>
+    <div className='px-2 md:px-4 lg:px-0'>
       <SectionTitle heading='View All Materials' subHeading='' />
       <div className='mt-10'>
         <div className='overflow-x-auto'>

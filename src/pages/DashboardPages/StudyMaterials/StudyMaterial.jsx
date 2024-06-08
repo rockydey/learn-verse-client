@@ -66,14 +66,14 @@ const StudyMaterial = () => {
                       onClick={() =>
                         handleImageDownload(material.image, "image.jpg")
                       }
-                      className='bg-color1 text-color4 flex p-3 w-fit mx-auto items-center rounded-full font-medium'>
+                      className='bg-color1 text-color4 flex p-2 w-fit mx-auto items-center rounded-full font-medium'>
                       <FaDownload />
                     </button>
                   </TableCell>
                   <TableCell className='px-0 lg:px-6'>
                     <Link
                       target='_blank'
-                      className='bg-color11 flex w-fit mx-auto items-center rounded-full text-color4 p-3 font-medium'
+                      className='bg-color11 flex w-fit mx-auto items-center rounded-full text-color4 p-2 font-medium'
                       to={material.link}>
                       <FaGoogleDrive />
                     </Link>
