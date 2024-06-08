@@ -4,7 +4,7 @@ import Teachers from "../Teachers/Teachers";
 
 const Home = () => {
   return (
-    <div className='space-y-24'>
+    <div className='space-y-24 dark:bg-color3'>
       <Banner />
       <StudySessions />
       <Teachers />

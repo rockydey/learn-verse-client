@@ -8,14 +8,16 @@ import {
 import { FaUserGraduate } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import DarkModeToggle from "react-dark-mode-toggle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Header.css";
 import useAuth from "../../../hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 import useRole from "../../../hooks/useRole";
 
 const Header = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem("darkMode")
+  );
   const { user, logOut } = useAuth();
   const [userRole] = useRole();
 
@@ -25,8 +27,18 @@ const Header = () => {
     });
   };
 
+  useEffect(() => {
+    const darkMode = localStorage.getItem("darkMode") === "true";
+    setIsDarkMode(darkMode);
+  }, []);
+
+  useEffect(() => {
+    document.body.classList.toggle("dark", isDarkMode);
+    localStorage.setItem("darkMode", isDarkMode);
+  }, [isDarkMode]);
+
   return (
-    <div className='bg-color4 py-2 shadow-md fixed top-0 z-50 w-full transition-all duration-1000'>
+    <div className='bg-color4 dark:bg-color3 py-2 shadow-md fixed top-0 z-50 w-full transition-all duration-1000'>
       <div className='max-w-screen-xl mx-auto'>
         <Navbar fluid rounded>
           <NavbarBrand>

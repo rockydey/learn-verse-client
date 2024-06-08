@@ -15,7 +15,7 @@ const StudySessions = () => {
   });
 
   return (
-    <div className='max-w-screen-xl mx-auto'>
+    <div className='max-w-screen-xl mx-auto px-2 md:px-4 lg:px-0'>
       <SectionTitle
         heading='POPULAR COURSES'
         subHeading='Explore your learning path with our top courses'

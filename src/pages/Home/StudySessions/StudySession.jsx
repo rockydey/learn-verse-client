@@ -14,7 +14,7 @@ const StudySession = ({ studySession }) => {
   const date2 = moment(new Date());
 
   return (
-    <div className='flex flex-col gap-4 p-5 border-2 border-color9 shadow rounded'>
+    <div className='flex flex-col gap-4 p-5 border-2 dark:bg-color5 dark:border-color6 border-color9 shadow rounded'>
       <div className='flex-none'>
         <div className='mb-2 flex justify-between items-center'>
           <p className='text-sm text-color11 font-medium'>
@@ -30,9 +30,9 @@ const StudySession = ({ studySession }) => {
             </button>
           )}
         </div>
-        <h2 className='text-xl text-color5 font-bold'>{session_title}</h2>
+        <h2 className='text-xl text-color5 dark:text-color4 font-bold'>{session_title}</h2>
       </div>
-      <p className='flex-grow text-base font-medium text-color6'>
+      <p className='flex-grow text-base font-medium dark:text-color9 text-color6'>
         {session_description}
       </p>
       <div className='flex-none'>

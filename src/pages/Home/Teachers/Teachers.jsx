@@ -19,7 +19,7 @@ const Teachers = () => {
   });
 
   return (
-    <div className='max-w-screen-xl mx-auto'>
+    <div className='max-w-screen-xl mx-auto px-2 md:px-4 lg:px-0'>
       <div className='pb-24'>
         <SectionTitle
           heading='Team of Experts'
@@ -54,7 +54,7 @@ const Teachers = () => {
             className='mySwiper'>
             {teachers.map((teacher) => (
               <SwiperSlide key={teacher._id}>
-                <div className='bg-color9 px-5 pt-5'>
+                <div className='bg-color9 dark:bg-color5 px-5 pt-5'>
                   <div className='flex justify-center'>
                     <img
                       className='rounded-full w-80'
@@ -63,10 +63,10 @@ const Teachers = () => {
                     />
                   </div>
                   <div className='text-center mt-5'>
-                    <h3 className='text-color5 text-xl font-semibold'>
+                    <h3 className='text-color5 dark:text-color4 text-xl font-semibold'>
                       {teacher.user_name}
                     </h3>
-                    <p className='text-lg mt-1 capitalize font-medium text-color5'>
+                    <p className='text-lg mt-1 capitalize font-medium dark:text-color9 text-color5'>
                       {teacher.specialist} teacher
                     </p>
                   </div>
