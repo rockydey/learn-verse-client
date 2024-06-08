@@ -12,6 +12,7 @@ import {
 } from "flowbite-react";
 import useAxoisPublic from "../../../hooks/useAxoisPublic";
 import fileDownload from "js-file-download";
+import { FaDownload, FaGoogleDrive } from "react-icons/fa";
 
 const StudyMaterial = () => {
   const { id } = useParams();
@@ -53,24 +54,28 @@ const StudyMaterial = () => {
                 <TableRow
                   key={material._id}
                   className='text-color5 text-base font-medium text-center'>
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>{material.session_title}</TableCell>
-                  <TableCell>{material.tutor_email}</TableCell>
-                  <TableCell>
+                  <TableCell className='px-0 lg:px-6'>{index + 1}</TableCell>
+                  <TableCell className='px-0 lg:px-6'>
+                    {material.session_title}
+                  </TableCell>
+                  <TableCell className='px-0 lg:px-6'>
+                    {material.tutor_email}
+                  </TableCell>
+                  <TableCell className='px-0 lg:px-6'>
                     <button
                       onClick={() =>
                         handleImageDownload(material.image, "image.jpg")
                       }
-                      className='bg-color1 text-color4 px-3 py-2 font-medium'>
-                      Download
+                      className='bg-color1 text-color4 flex p-3 w-fit mx-auto items-center rounded-full font-medium'>
+                      <FaDownload />
                     </button>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className='px-0 lg:px-6'>
                     <Link
                       target='_blank'
-                      className='bg-color11 text-color4 px-3 py-2 font-medium'
+                      className='bg-color11 flex w-fit mx-auto items-center rounded-full text-color4 p-3 font-medium'
                       to={material.link}>
-                      Drive Link
+                      <FaGoogleDrive />
                     </Link>
                   </TableCell>
                 </TableRow>

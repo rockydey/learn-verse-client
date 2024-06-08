@@ -9,12 +9,13 @@ import {
   TableRow,
 } from "flowbite-react";
 import useBookedSession from "../../../hooks/useBookedSession";
+import { TbListDetails } from "react-icons/tb";
 
 const BookedSession = () => {
   const bookedSessions = useBookedSession();
 
   return (
-    <div>
+    <div className='px-2 md:px-4 lg:px-0'>
       <SectionTitle heading='All Booked Sessions' />
       <div className='mt-10'>
         <div className='overflow-x-auto'>
@@ -32,18 +33,26 @@ const BookedSession = () => {
                 <TableRow
                   key={session._id}
                   className='text-color5 text-base font-medium text-center'>
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>{session.session_title}</TableCell>
-                  <TableCell>{session.tutor_name}</TableCell>
-                  <TableCell>
+                  <TableCell className='px-0 lg:px-6 py-4'>
+                    {index + 1}
+                  </TableCell>
+                  <TableCell className='px-0 lg:px-6 py-4'>
+                    {session.session_title}
+                  </TableCell>
+                  <TableCell className='px-0 lg:px-6 py-4'>
+                    {session.tutor_name}
+                  </TableCell>
+                  <TableCell className='px-0 lg:px-6 py-4'>
                     <span>{session.session_category}</span>
                   </TableCell>
-                  <TableCell>{session.class_start}</TableCell>
-                  <TableCell>
+                  <TableCell className='px-0 lg:px-6 py-4'>
+                    {session.class_start}
+                  </TableCell>
+                  <TableCell className='px-0 lg:px-6 py-4'>
                     <Link
                       to={`/dashboard/booked-session/${session._id}`}
-                      className='px-2 py-1 bg-color1 text-color4'>
-                      View Details
+                      className='p-2 text-lg w-fit flex ml-auto md:ml-0 items-center bg-color1 rounded-full text-color4'>
+                      <TbListDetails />
                     </Link>
                   </TableCell>
                 </TableRow>

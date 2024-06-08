@@ -37,7 +37,7 @@ const CreateNote = () => {
   };
 
   return (
-    <div>
+    <div className='px-2 md:px-4 lg:px-0'>
       <SectionTitle heading='Create Session Note' subHeading='' />
       <div className='mt-16'>
         <form

@@ -91,101 +91,105 @@ const SingleSession = () => {
   };
 
   return (
-    <div className='mt-16 md:max-w-2xl lg:max-w-screen-sm mx-auto px-2 md:px-4 lg:px-0 py-20 md:py-24'>
-      <div className='bg-color9 text-color5 p-5 md:p-10 rounded-xl'>
-        <h3 className='text-center  font-bold md:text-2xl'>{session_title}</h3>
-        <p className='text-center mt-4 text-color6 text-lg font-medium'>
-          {session_description}
-        </p>
-        <div className='mt-5 text-lg flex-wrap md:flex-nowrap flex justify-evenly'>
-          <p className='flex items-center gap-3 font-normal'>
-            <GiTeacher /> {tutor_name}
+    <div className='dark:bg-color3'>
+      <div className='mt-16 md:max-w-2xl lg:max-w-screen-sm mx-auto px-2 md:px-4 lg:px-0 py-20 md:py-24'>
+        <div className='bg-color9 dark:bg-color5 dark:text-color4 text-color5 p-5 md:p-10 rounded-xl'>
+          <h3 className='text-center  font-bold md:text-2xl'>
+            {session_title}
+          </h3>
+          <p className='text-center mt-4 dark:text-color9 text-color6 text-lg font-medium'>
+            {session_description}
           </p>
-          <p className='flex items-center gap-3 font-normal'>
-            <TbTimeDuration45 /> {session_duration} hour
-          </p>
-          <p className='flex items-center gap-3 font-normal'>
-            <MdCategory />{" "}
-            <span className='text-color11'>#{session_category}</span>
-          </p>
-        </div>
-        <div className='mt-5 text-lg font-normal flex flex-col md:flex-row gap-3 md:gap-0 justify-between items-center'>
-          <p>
-            <span className='font-medium'>Registration Start:</span>{" "}
-            {registration_start}
-          </p>
-          <p>
-            <span className='font-medium'>Registration End:</span>{" "}
-            {registration_end}
-          </p>
-        </div>
-        <div className='mt-5 text-lg font-normal flex flex-col md:flex-row gap-3 md:gap-0 justify-evenly items-center'>
-          <p>
-            <span className='font-medium'>Class Start :</span> {class_start}
-          </p>
-          <p>
-            <span className='font-medium'>Class End :</span> {class_end}
-          </p>
-        </div>
-        <div className='mt-5 text-lg font-normal flex justify-center flex-col md:flex-row gap-3 md:gap-6 items-center'>
-          <div className='flex items-center gap-1'>
-            <p className='font-medium'>Average Rating :</p>{" "}
-            <p className='flex items-center gap-1 text-color2'>
-              <span>{averageRate ? averageRate : 0}</span>
-              <FaStar />
+          <div className='mt-5 text-lg flex-wrap md:flex-nowrap flex justify-evenly'>
+            <p className='flex items-center gap-3 font-normal'>
+              <GiTeacher /> {tutor_name}
+            </p>
+            <p className='flex items-center gap-3 font-normal'>
+              <TbTimeDuration45 /> {session_duration} hour
+            </p>
+            <p className='flex items-center gap-3 font-normal'>
+              <MdCategory />{" "}
+              <span className='text-color11'>#{session_category}</span>
             </p>
           </div>
-          <p>
-            <span className='font-medium'>Registration Fee :</span> $
-            {parseInt(registration_fee)}
-          </p>
-        </div>
-        <div className='text-center mt-5'>
-          {date2.diff(date1, "days") > 0 ? (
-            <button
-              disabled
-              className='px-4 py-3 disabled:bg-[#cccccc] disabled:text-[#666666] w-fit disabled:cursor-not-allowed font-semibold'>
-              Registration Closed
-            </button>
-          ) : (
-            <button
-              onClick={handleBookNow}
-              disabled={userRole === "admin" || userRole === "teacher"}
-              className='px-4 py-3 disabled:bg-[#cccccc] disabled:text-[#666666] w-fit disabled:cursor-not-allowed bg-color1 text-color4 font-semibold'>
-              Book Now
-            </button>
-          )}
-        </div>
-      </div>
-      {feedbacks.length !== 0 && (
-        <div className='mt-10 border-2 border-color2 p-10 rounded-xl'>
-          <h2 className='text-center text-color1 font-merriweather text-2xl font-bold'>
-            Students Feedback
-          </h2>
-          <div className='border-b-2 w-32 border-color1 mx-auto'></div>
-          <div className='mt-5'>
-            {feedbacks.map((feedback) => (
-              <div key={feedback._id} className='text-center mb-10'>
-                <h3 className='text-xl font-semibold text-color5'>
-                  {feedback.user_name}
-                </h3>
-                <div className='flex justify-center'>
-                  <StarRatingComponent
-                    activeColor='#FFC600'
-                    starCount={5}
-                    size={32}
-                    value={feedback.rating}
-                    edit={false}
-                  />
-                </div>
-                <p className='text-base text-color6 font-medium'>
-                  {feedback.feedback}
-                </p>
-              </div>
-            ))}
+          <div className='mt-5 text-lg font-normal flex flex-col md:flex-row gap-3 md:gap-0 justify-between items-center'>
+            <p>
+              <span className='font-medium'>Registration Start:</span>{" "}
+              {registration_start}
+            </p>
+            <p>
+              <span className='font-medium'>Registration End:</span>{" "}
+              {registration_end}
+            </p>
+          </div>
+          <div className='mt-5 text-lg font-normal flex flex-col md:flex-row gap-3 md:gap-0 justify-evenly items-center'>
+            <p>
+              <span className='font-medium'>Class Start :</span> {class_start}
+            </p>
+            <p>
+              <span className='font-medium'>Class End :</span> {class_end}
+            </p>
+          </div>
+          <div className='mt-5 text-lg font-normal flex justify-center flex-col md:flex-row gap-3 md:gap-6 items-center'>
+            <div className='flex items-center gap-1'>
+              <p className='font-medium'>Average Rating :</p>{" "}
+              <p className='flex items-center gap-1 text-color2'>
+                <span>{averageRate ? averageRate : 0}</span>
+                <FaStar />
+              </p>
+            </div>
+            <p>
+              <span className='font-medium'>Registration Fee :</span> $
+              {parseInt(registration_fee)}
+            </p>
+          </div>
+          <div className='text-center mt-5'>
+            {date2.diff(date1, "days") > 0 ? (
+              <button
+                disabled
+                className='px-4 py-3 disabled:bg-[#cccccc] disabled:text-[#666666] w-fit disabled:cursor-not-allowed font-semibold'>
+                Registration Closed
+              </button>
+            ) : (
+              <button
+                onClick={handleBookNow}
+                disabled={userRole === "admin" || userRole === "teacher"}
+                className='px-4 py-3 disabled:bg-[#cccccc] disabled:text-[#666666] w-fit disabled:cursor-not-allowed bg-color1 text-color4 font-semibold'>
+                Book Now
+              </button>
+            )}
           </div>
         </div>
-      )}
+        {feedbacks.length !== 0 && (
+          <div className='mt-10 border-2 border-color2 p-10 rounded-xl'>
+            <h2 className='text-center text-color1 font-merriweather text-2xl font-bold'>
+              Students Feedback
+            </h2>
+            <div className='border-b-2 w-32 border-color1 mx-auto'></div>
+            <div className='mt-5'>
+              {feedbacks.map((feedback) => (
+                <div key={feedback._id} className='text-center mb-10'>
+                  <h3 className='text-xl font-semibold dark:text-color4 text-color5'>
+                    {feedback.user_name}
+                  </h3>
+                  <div className='flex justify-center'>
+                    <StarRatingComponent
+                      activeColor='#FFC600'
+                      starCount={5}
+                      size={32}
+                      value={feedback.rating}
+                      edit={false}
+                    />
+                  </div>
+                  <p className='text-base text-color6 dark:text-color9 font-medium'>
+                    {feedback.feedback}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -34,7 +34,7 @@ const Dashboard = () => {
         </div>
       </div>
       <Drawer
-        className='bg-color5 '
+        className='bg-color5'
         open={isOpen}
         onClose={() => setIsOpen(!isOpen)}>
         <div className='text-color5 flex text-lg items-center font-semibold font-merriweather justify-between pl-5 uppercase mb-3 mt-4'>
