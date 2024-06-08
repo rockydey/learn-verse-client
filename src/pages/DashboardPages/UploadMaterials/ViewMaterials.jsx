@@ -16,6 +16,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const ViewMaterials = () => {
   const { user } = useAuth();
@@ -77,6 +78,9 @@ const ViewMaterials = () => {
 
   return (
     <div className='px-2 md:px-4 lg:px-0'>
+      <Helmet>
+        <title>LearnVerse | Dashboard | View Materials</title>
+      </Helmet>
       <SectionTitle heading='View All Materials' subHeading='' />
       <div className='mt-10'>
         <div className='overflow-x-auto'>

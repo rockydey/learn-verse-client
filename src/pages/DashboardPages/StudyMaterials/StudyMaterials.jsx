@@ -4,12 +4,16 @@ import useBookedSession from "../../../hooks/useBookedSession";
 import { TbTimeDuration45 } from "react-icons/tb";
 import { MdCategory } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const StudyMaterials = () => {
   const bookedSessions = useBookedSession();
 
   return (
     <div className='px-2 md:px-4 lg:px-0'>
+      <Helmet>
+        <title>LearnVerse | Dashboard | Study Materials</title>
+      </Helmet>
       <SectionTitle heading='Collect Materials' subHeading='' />
       <div className='mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
         {bookedSessions.map((bookedSession) => (

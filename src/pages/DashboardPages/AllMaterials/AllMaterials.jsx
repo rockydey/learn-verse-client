@@ -14,6 +14,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
 import { FaGoogleDrive } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 const AllMaterials = () => {
   const axoisSecure = useAxoisSecure();
@@ -48,6 +49,9 @@ const AllMaterials = () => {
 
   return (
     <div className='px-2 md:px-4 lg:px-0'>
+      <Helmet>
+        <title>LearnVerse | Dashboard | All Materials</title>
+      </Helmet>
       <SectionTitle heading='Manage All Materials' subHeading='' />
       <div className='mt-10'>
         <div className='overflow-x-auto'>

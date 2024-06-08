@@ -7,6 +7,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
 import useSessionData from "../../../hooks/useSessionData";
+import { Helmet } from "react-helmet-async";
 
 const ViewSessions = () => {
   const [sessions, refetch] = useSessionData();
@@ -56,6 +57,9 @@ const ViewSessions = () => {
 
   return (
     <div className='px-2 md:px-4 lg:px-0'>
+      <Helmet>
+        <title>LearnVerse | Dashboard | View Sessions</title>
+      </Helmet>
       <SectionTitle heading='View All Sessions' subHeading='' />
       <div className='mt-10'>
         <div className='overflow-x-auto'>

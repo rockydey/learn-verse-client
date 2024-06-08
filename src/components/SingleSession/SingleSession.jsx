@@ -10,6 +10,7 @@ import moment from "moment";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import StarRatingComponent from "react-rating-stars-component";
+import { Helmet } from "react-helmet-async";
 
 const SingleSession = () => {
   const { user } = useAuth();
@@ -92,6 +93,9 @@ const SingleSession = () => {
 
   return (
     <div className='dark:bg-color3'>
+      <Helmet>
+        <title>LearnVerse | Study Session</title>
+      </Helmet>
       <div className='mt-16 md:max-w-2xl lg:max-w-screen-sm mx-auto px-2 md:px-4 lg:px-0 py-20 md:py-24'>
         <div className='bg-color9 dark:bg-color5 dark:text-color4 text-color5 p-5 md:p-10 rounded-xl'>
           <h3 className='text-center  font-bold md:text-2xl'>

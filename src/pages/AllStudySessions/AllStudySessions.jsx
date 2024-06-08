@@ -4,6 +4,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import HashLoader from "react-spinners/HashLoader";
 import StudySession from "../Home/StudySessions/StudySession";
+import { Helmet } from "react-helmet-async";
 
 const AllStudySessions = () => {
   const axoisPublic = useAxoisSecure();
@@ -52,6 +53,9 @@ const AllStudySessions = () => {
 
   return (
     <div className='dark:bg-color3'>
+      <Helmet>
+        <title>LearnVerse | Study Sessions</title>
+      </Helmet>
       <div className='mt-16 max-w-screen-xl mx-auto px-2 md:px-4 lg:px-0'>
         <div className='py-20'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>

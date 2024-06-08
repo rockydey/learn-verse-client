@@ -30,7 +30,9 @@ const StudySession = ({ studySession }) => {
             </button>
           )}
         </div>
-        <h2 className='text-xl text-color5 dark:text-color4 font-bold'>{session_title}</h2>
+        <h2 className='text-xl text-color5 dark:text-color4 font-bold'>
+          {session_title}
+        </h2>
       </div>
       <p className='flex-grow text-base font-medium dark:text-color9 text-color6'>
         {session_description}

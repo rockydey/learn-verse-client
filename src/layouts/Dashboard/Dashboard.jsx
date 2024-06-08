@@ -13,6 +13,7 @@ import { ImCross } from "react-icons/im";
 import { Drawer } from "flowbite-react";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const Dashboard = () => {
   const [userRole] = useRole();
@@ -21,6 +22,9 @@ const Dashboard = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>LearnVerse | Dashboard</title>
+      </Helmet>
       <div className=''>
         <div className='relative'>
           <button

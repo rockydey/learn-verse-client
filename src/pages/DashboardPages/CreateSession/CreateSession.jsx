@@ -4,6 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import moment from "moment";
 import toast, { Toaster } from "react-hot-toast";
 import useAxoisSecure from "../../../hooks/useAxoisSecure";
+import { Helmet } from "react-helmet-async";
 
 const CreateSession = () => {
   const axoisSecure = useAxoisSecure();
@@ -66,6 +67,9 @@ const CreateSession = () => {
 
   return (
     <div className='px-2 md:px-4 lg:px-0'>
+      <Helmet>
+        <title>LearnVerse | Dashboard | Create Session</title>
+      </Helmet>
       <SectionTitle heading='Create New Session' subHeading='' />
       <div className='mt-10 max-w-screen-sm mx-auto'>
         <form

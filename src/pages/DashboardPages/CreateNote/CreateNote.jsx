@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import useAxoisSecure from "../../../hooks/useAxoisSecure";
 import toast, { Toaster } from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const CreateNote = () => {
   const { user } = useAuth();
@@ -38,6 +39,9 @@ const CreateNote = () => {
 
   return (
     <div className='px-2 md:px-4 lg:px-0'>
+      <Helmet>
+        <title>LearnVerse | Dashboard | Create Note</title>
+      </Helmet>
       <SectionTitle heading='Create Session Note' subHeading='' />
       <div className='mt-16'>
         <form

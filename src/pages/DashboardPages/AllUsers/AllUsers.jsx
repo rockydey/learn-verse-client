@@ -12,6 +12,7 @@ import {
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const AllUsers = () => {
   const [query, setQuery] = useState("");
@@ -91,7 +92,10 @@ const AllUsers = () => {
   };
 
   return (
-    <div className="px-2 md:px-4 lg:px-0">
+    <div className='px-2 md:px-4 lg:px-0'>
+      <Helmet>
+        <title>LearnVerse | Dashboard | All Users</title>
+      </Helmet>
       <SectionTitle heading='Manage All Users' subHeading='' />
       <div className='mt-10'>
         <form onSubmit={handleSearch} className='text-center mb-6'>
@@ -129,7 +133,9 @@ const AllUsers = () => {
                       alt=''
                     />
                   </TableCell>
-                  <TableCell className="px-0 md:px-6">{user.user_name}</TableCell>
+                  <TableCell className='px-0 md:px-6'>
+                    {user.user_name}
+                  </TableCell>
                   <TableCell>{user.user_email}</TableCell>
                   <TableCell className=''>
                     <button

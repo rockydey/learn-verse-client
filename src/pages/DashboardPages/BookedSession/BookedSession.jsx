@@ -10,12 +10,16 @@ import {
 } from "flowbite-react";
 import useBookedSession from "../../../hooks/useBookedSession";
 import { TbListDetails } from "react-icons/tb";
+import { Helmet } from "react-helmet-async";
 
 const BookedSession = () => {
   const bookedSessions = useBookedSession();
 
   return (
     <div className='px-2 md:px-4 lg:px-0'>
+      <Helmet>
+        <title>LearnVerse | Dashboard | Booked Sessions</title>
+      </Helmet>
       <SectionTitle heading='All Booked Sessions' />
       <div className='mt-10'>
         <div className='overflow-x-auto'>

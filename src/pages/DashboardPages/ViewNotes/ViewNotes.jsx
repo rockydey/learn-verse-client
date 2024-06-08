@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useAxoisSecure from "../../../hooks/useAxoisSecure";
+import { Helmet } from "react-helmet-async";
 
 const ViewNotes = () => {
   const axoisSecure = useAxoisSecure();
@@ -23,6 +24,9 @@ const ViewNotes = () => {
 
   return (
     <div className='px-2 md:px-4 lg:px-0'>
+      <Helmet>
+        <title>LearnVerse | Dashboard | View Student Notes</title>
+      </Helmet>
       <SectionTitle heading='View All Notes' subHeading='' />
       <div className='mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
         {notes.map((note) => (
