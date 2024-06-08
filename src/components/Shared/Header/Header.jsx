@@ -38,7 +38,7 @@ const Header = () => {
   }, [isDarkMode]);
 
   return (
-    <div className='bg-color4 dark:bg-color3 py-2 shadow-md fixed top-0 z-50 w-full transition-all duration-1000'>
+    <div className='bg-color4 dark:bg-color3 dark:border-b dark:border-color8 py-2 shadow-md fixed top-0 z-50 w-full transition-all duration-1000'>
       <div className='max-w-screen-xl mx-auto'>
         <Navbar fluid rounded>
           <NavbarBrand>

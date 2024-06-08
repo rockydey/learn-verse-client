@@ -51,38 +51,40 @@ const AllStudySessions = () => {
   }
 
   return (
-    <div className='mt-16 max-w-screen-xl mx-auto'>
-      <div className='py-20'>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-          {allStudySessions.map((studySession) => (
-            <StudySession
-              key={studySession._id}
-              studySession={studySession}></StudySession>
-          ))}
-        </div>
-        <div className='mt-10 flex gap-4 justify-center items-center'>
-          <button
-            onClick={handlePrevPage}
-            className='text-color6 p-[10px] text-xl'>
-            <FaChevronLeft />
-          </button>
-          {pages.map((page) => (
+    <div className='dark:bg-color3'>
+      <div className='mt-16 max-w-screen-xl mx-auto px-2 md:px-4 lg:px-0'>
+        <div className='py-20'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+            {allStudySessions.map((studySession) => (
+              <StudySession
+                key={studySession._id}
+                studySession={studySession}></StudySession>
+            ))}
+          </div>
+          <div className='mt-10 flex gap-4 justify-center items-center'>
             <button
-              onClick={() => setCurrentPage(page)}
-              className={`${
-                currentPage === page
-                  ? "bg-color2 border-2 text-color4 border-color2"
-                  : "border-2 border-color5 text-color5"
-              } w-10 h-10 rounded-full`}
-              key={page}>
-              {page + 1}
+              onClick={handlePrevPage}
+              className='text-color6 dark:text-color7 p-[10px] text-xl'>
+              <FaChevronLeft />
             </button>
-          ))}
-          <button
-            onClick={handleNextPage}
-            className='text-color6 p-[10px] text-xl'>
-            <FaChevronRight />
-          </button>
+            {pages.map((page) => (
+              <button
+                onClick={() => setCurrentPage(page)}
+                className={`${
+                  currentPage === page
+                    ? "bg-color2 border-2 text-color4 border-color2"
+                    : "border-2 border-color5 dark:border-color7 dark:text-color7 text-color5"
+                } w-10 h-10 rounded-full`}
+                key={page}>
+                {page + 1}
+              </button>
+            ))}
+            <button
+              onClick={handleNextPage}
+              className='text-color6 p-[10px] text-xl'>
+              <FaChevronRight />
+            </button>
+          </div>
         </div>
       </div>
     </div>
